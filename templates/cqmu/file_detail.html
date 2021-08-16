@@ -1,0 +1,151 @@
+{% extends "cqmu/base.html" %}
+
+{% block content %}
+    <h1 class="site-h1">{{ file.label }}</h1>
+    <div class="layui-row">
+        <div class="layui-col-xs9">
+            <span class="layui-badge layui-bg-green">{{ file.topic_category }}</span>
+            <span class="layui-badge-rim">{{ file.grade }}</span>
+            <span class="layui-badge-rim">{{ file.data_source }}</span>
+            <span class="layui-badge layui-bg-gray">发布日期 {{ file.release_date }}</span>
+        </div>
+        <div class="layui-col-xs3">
+            <span class="layui-badge-rim">访问 {{ file.visits }}</span>
+            <span class="layui-badge-rim">下载 {{ file.downloads }}</span>
+            <span class="layui-badge-rim">评分 {{ file.comment_scoring }}</span>
+        </div>
+    </div>
+    <div class="layui-row layui-text" style="margin-top: 15px;">
+        <p>{{ file.description }}</p>
+    </div>
+
+    <blockquote class="layui-elem-quote" style="margin-top: 15px;">
+        <!-- Link -->
+        {% if form == 1 %}
+            {% if file.url %}
+                链接: <a href="{{ file.url }}" target="_blank">{{ file.url }}</a>
+            {% else %}
+                暂无内容,请联系管理员。
+            {% endif %}
+        {% else %}
+            {% if file.file %}
+                <!-- File -->
+                {% if form == 2 %}
+                    文件类型: {{ file.file_category }}
+                    <br/><br/>
+                    <iframe src="https://view.xdocin.com/xdoc?_xdoc={{ file.file.url }}&_toolbar=false" width='100%' style="min-height: 800px; border: 0;">
+                    </iframe>
+{#                    <iframe src="https://view.officeapps.live.com/op/view.aspx?src={{ file.file.url }}" width='100%' style="min-height: 800px; border: 0;">#}
+{#                    </iframe>#}
+                {% endif %}
+                <!-- Image -->
+                {% if form == 3 %}
+                    <img src="{{ file.file.url }}" style="width: 100%;"/>
+                {% endif %}
+                <!-- Audio -->
+                {% if form == 4 %}
+                    <audio controls="controls">
+                        <source src="{{ file.file.url }}" type="audio/mp3" />
+                        <embed height="100" width="100" src="{{ file.file.url }}" />
+                    </audio>
+                {% endif %}
+                <!-- Video -->
+                {% if form == 5 %}
+                    <video src="{{ file.file.url }}" controls="controls" width="100%">
+                        您的浏览器不支持 Video 标签。
+                    </video>
+                {% endif %}
+                <br/><br/>
+                <button type="button" class="layui-btn layui-btn-primary layui-border-green" onclick="dl('{{ file.file.url }}')">点击下载</button>
+            {% else %}
+                暂无内容,请联系管理员。
+            {% endif %}
+        {% endif %}
+    </blockquote>
+    <!-- DownLoad -->
+    <script type="text/javascript">
+        function dl(url) {
+            layui.use('layer', function(){
+                var layer = layui.layer;
+                try {
+                    // Downloadjs
+                    download(url);
+                } catch (e) {
+                    layer.msg('下载失败，请稍后再试试。');
+                    return
+                }
+                //显示自动关闭倒计秒数
+                layer.alert('正在下载中...', {
+                    time: 3*1000
+                    ,success: function(layero, index){
+                        var timeNum = this.time/1000, setText = function(start){
+                            layer.title((start ? timeNum : --timeNum) + ' 秒后关闭', index);
+                        };
+                        setText(!0);
+                        this.timer = setInterval(setText, 1000);
+                        if(timeNum <= 0) clearInterval(this.timer);
+                    }
+                    ,end: function(){
+                        clearInterval(this.timer);
+                    }
+                });
+            });
+        }
+    </script>
+
+    <!-- Comment -->
+    <fieldset class="layui-elem-field layui-field-title" style="margin-top: 20px;">
+        <legend>评论列表</legend>
+    </fieldset>
+
+    {% if comments %}
+        {% for comment in comments %}
+            <blockquote class="layui-elem-quote layui-quote-nm layui-col-space15 layui-anim layui-anim-fadein">
+                <span style="font-weight: bold;">{{ comment.nickname }}</span>
+                <span class="layui-badge-rim">评分 {{ comment.scoring }}</span>
+                <span class="layui-badge layui-bg-gray">{{ comment.comment_date }}</span>
+                {% if comment.label %}
+                    <br/><br/>
+                    <span>{{ comment.label|default:'-' }}</span>
+                {% endif %}
+            </blockquote>
+        {% endfor %}
+    {% else %}
+        <div class="layui-row">
+            <div class="layui-col-md6 layui-col-md-offset6">
+                <p>暂无评论</p>
+            </div>
+        </div>
+    {% endif %}
+
+    <fieldset class="layui-elem-field" style="margin-top: 20px;">
+        <legend>我要评论</legend>
+        <div class="layui-field-box">
+            <form action="{% url 'file_detail' file.id %}" method="post" class="layui-form layui-form-pane">
+                {% csrf_token %}
+                {% if error_message %}<p><strong>{{ error_message }}</strong></p>{% endif %}
+                <div class="layui-form-item">
+                    <label class="layui-form-label">评分</label>
+                    <div class="layui-input-block">
+                        {% for s in scoring %}
+                            <input type="radio" name="scoring" id="scoring{{ s|first }}" value="{{ s|first }}" title="{{ s|last }}"
+                            {% if forloop.last %} checked {% endif %}/>
+                        {% endfor %}
+                    </div>
+                </div>
+                <div class="layui-form-item layui-form-text">
+                    <label class="layui-form-label">评论内容</label>
+                    <div class="layui-input-block">
+                        <textarea name="label" placeholder="请输入内容" class="layui-textarea"></textarea>
+                    </div>
+                </div>
+                <input type="text" name="nickname" value="王五" hidden/>
+                <div class="layui-form-item">
+                    <button class="layui-btn" lay-submit lay-filter="formDemo">评论</button>
+                    <button type="reset" class="layui-btn layui-btn-primary">重置</button>
+                </div>
+            </form>
+        </div>
+    </fieldset>
+
+{% endblock content %}

@@ -1,0 +1,106 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <!-- 必须的 meta 标签 -->
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+    <meta name="referrer" content="origin">
+    <!-- Layui 的 CSS 文件 -->
+    <link href="https://www.layuicdn.com/layui-v2.6.8/css/layui.css" rel="stylesheet">
+    <!-- 补充CSS -->
+    <style>
+        .bg-sizhengke {
+            background-color: #3ba1df !important;
+        }
+        .site-content {
+            padding-top: 20px;
+            min-height: 1250px;
+         }
+        .site-menu {
+            min-height: 950px;
+        }
+        .site-h1 {
+            margin-bottom: 20px;
+            line-height: 60px;
+            padding-bottom: 10px;
+            color: #393D49;
+            border-bottom: 1px solid #eee;
+            font-size: 28px;
+            font-weight: 300;
+        }
+    </style>
+        <title>思想政治资源数据库系统</title>
+</head>
+<body>
+    <!-- Layui 的 JavaScript -->
+    <script src="https://www.layuicdn.com/layui-v2.6.8/layui.js"></script>
+    <!-- Download -->
+    <script src="https://cdn.bootcdn.net/ajax/libs/downloadjs/1.4.8/download.min.js"></script>
+
+    <!-- 顶部Logo -->
+    <nav class="layui-header bg-sizhengke">
+        <div class="layui-container">
+            <a href="{% url 'index' %}"><img src="https://sizhengke-dev-1306868775.cos.ap-chongqing.myqcloud.com/logo.png"/><span class="layui-font-18" style="color: azure"> | 思想政治资源数据库系统</span></a>
+            <a href="{% url 'admin:index' %}" class="layui-font-12 layui-font-cyan" style="float: right;margin-top: 20px;">管理后台</a>
+        </div>
+    </nav>
+
+    <div class="layui-container">
+    <div class="layui-row layui-col-space20">
+        <!-- 侧边栏 -->
+        <div class="layui-col-sm3">
+            <div class="layui-panel site-menu">
+                <ul class="layui-menu layui-menu-lg">
+                    <li class="layui-menu-item-group">
+                        <div class="layui-menu-body-title">类别主题</div>
+                        <hr/>
+                        <ul>
+                        {% if active_topic %}
+                            <li><div class="layui-menu-body-title">
+                                <a href="{% url 'index' %}">所有类别主题</a>
+                            </div></li>
+                        {% else %}
+                            <li class="layui-menu-item-checked2"><div class="layui-menu-body-title">
+                                <a href="{% url 'index' %}">所有类别主题</a>
+                            </div></li>
+                        {% endif %}
+                            {% for topic in topic_category %}
+                                {% if topic == active_topic %}
+                                    <li class="layui-menu-item-checked2"><div class="layui-menu-body-title">
+                                        <a href="{% url 'index' %}?at={{ topic.id }}">{{ topic }}</a>
+                                    </div></li>
+                                {% else %}
+                                    <li><div class="layui-menu-body-title">
+                                        <a href="{% url 'index' %}?at={{ topic.id }}">{{ topic }}</a>
+                                    </div></li>
+                                {% endif %}
+                            {% endfor %}
+                        </ul>
+                    </li>
+                </ul>
+            </div>
+
+        </div>
+        <!-- 主要内容-->
+        <div class="layui-col-sm9 site-content">
+            <div class="layui-row">
+                {% block content %}
+                    <p>主要内容</p>
+                {% endblock content %}
+            </div>
+        </div>
+    </div>
+    </div>
+
+    <!-- 底部footer -->
+    <footer class="bg-sizhengke">
+        <div class="layui-container" style="height: 60px;">
+            <div class="layui-row">
+                <div class="layui-col-xs6 layui-col-xs-offset6">
+                    <p style="color: #F6F6F6; margin-top: 20px;">Copyright &copy; sizhengke.com.cn 2021</p>
+                </div>
+            </div>
+        </div>
+    </footer>
+</body>
+</html>

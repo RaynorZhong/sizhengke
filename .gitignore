@@ -7,3 +7,7 @@ local_settings.py
 
 # Pycharm
 .idea
+# MacOs
+.DS_Store
+# simplepro
+simplepro.lic

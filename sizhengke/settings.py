@@ -31,12 +31,17 @@ ALLOWED_HOSTS = []
 # Application definition
 
 INSTALLED_APPS = [
+    'simplepro',
+    'simpleui',
+    'import_export',
     'django.contrib.admin',
     'django.contrib.auth',
     'django.contrib.contenttypes',
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
+    'debug_toolbar',
+    'cqmu'
 ]
 
 MIDDLEWARE = [
@@ -47,6 +52,10 @@ MIDDLEWARE = [
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
+    # DebugTool
+    'debug_toolbar.middleware.DebugToolbarMiddleware',
+    # 加入simplepro的中间件
+    'simplepro.middlewares.SimpleMiddleware'
 ]
 
 ROOT_URLCONF = 'sizhengke.urls'
@@ -54,8 +63,7 @@ ROOT_URLCONF = 'sizhengke.urls'
 TEMPLATES = [
     {
         'BACKEND': 'django.template.backends.django.DjangoTemplates',
-        'DIRS': [BASE_DIR / 'templates']
-        ,
+        'DIRS': [BASE_DIR / 'templates'],
         'APP_DIRS': True,
         'OPTIONS': {
             'context_processors': [
@@ -76,8 +84,12 @@ WSGI_APPLICATION = 'sizhengke.wsgi.application'
 
 DATABASES = {
     'default': {
-        'ENGINE': 'django.db.backends.sqlite3',
-        'NAME': BASE_DIR / 'db.sqlite3',
+        'ENGINE': 'django.db.backends.mysql',
+        'NAME': 'sizhengke',
+        'USER': 'root',
+        'PASSWORD': '',
+        'HOST': '127.0.0.1',
+        'PORT': '3306',
     }
 }
 
@@ -104,15 +116,15 @@ AUTH_PASSWORD_VALIDATORS = [
 # Internationalization
 # https://docs.djangoproject.com/en/3.2/topics/i18n/
 
-LANGUAGE_CODE = 'en-us'
+LANGUAGE_CODE = 'zh-hans'
 
-TIME_ZONE = 'UTC'
+TIME_ZONE = 'Asia/Chongqing'
 
 USE_I18N = True
 
 USE_L10N = True
 
-USE_TZ = True
+USE_TZ = False
 
 
 # Static files (CSS, JavaScript, Images)
@@ -124,3 +136,21 @@ STATIC_URL = '/static/'
 # https://docs.djangoproject.com/en/3.2/ref/settings/#default-auto-field
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
+
+# DebugTool Settings
+
+INTERNAL_IPS = [
+    '127.0.0.1',
+]
+
+# SimplePro 版权信息
+SIMPLEPRO_INFO = False
+# 配置Simple Pro是否显示首页的图标，默认为True，显示图表，False不显示
+SIMPLEPRO_CHART_DISPLAY = False
+SIMPLEUI_LOGO = 'https://sizhengke-dev-1306868775.cos.ap-chongqing.myqcloud.com/banner.png'
+
+# COS Settings
+COS_SECRET_ID = 'AKIDAC1hAQSGrDKCqHTP6YljSwBBwRjncDZg'
+COS_SECRET_KEY = 'vb2GF0WnqeDXcS3PWP4TdYEeplSu76qL'
+COS_REGION = 'ap-chongqing'
+COS_BUCKET = 'sizhengke-dev-1306868775'
