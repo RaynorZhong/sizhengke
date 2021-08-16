@@ -7,8 +7,8 @@ from .storage import CosStorage
 
 
 class TopicCategory(models.Model):
-    label = fields.CharField('类别主题', max_length=200)
-    seq = fields.IntegerField('排序序号', default=0)
+    label = fields.CharField(verbose_name='类别主题', max_length=200)
+    seq = fields.IntegerField(verbose_name='排序序号', default=0)
 
     def __str__(self):
         return self.label
@@ -20,8 +20,8 @@ class TopicCategory(models.Model):
 
 
 class Grade(models.Model):
-    label = fields.CharField('级别', max_length=200)
-    seq = fields.IntegerField('排序序号', default=0)
+    label = fields.CharField(verbose_name='级别', max_length=200)
+    seq = fields.IntegerField(verbose_name='排序序号', default=0)
 
     def __str__(self):
         return self.label
@@ -40,10 +40,10 @@ class FileCategory(models.Model):
         (4, '音频[mp3]-下载按钮'),
         (5, '视频[mp4]-下载按钮')]
 
-    label = fields.CharField('文件类型', max_length=200)
-    form = fields.IntegerField('展现形式', default=1, choices=FormList)
+    label = fields.CharField(verbose_name='文件类型', max_length=200)
+    form = fields.IntegerField(verbose_name='展现形式', default=1, choices=FormList)
     icon = models.URLField('文件类型展示图片')
-    seq = fields.IntegerField('排序序号', default=0)
+    seq = fields.IntegerField(verbose_name='排序序号', default=0)
 
     def __str__(self):
         return self.label
