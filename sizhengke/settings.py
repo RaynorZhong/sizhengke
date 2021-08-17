@@ -11,6 +11,7 @@ https://docs.djangoproject.com/en/3.2/ref/settings/
 """
 
 from pathlib import Path
+from decouple import config
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
@@ -23,7 +24,7 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 SECRET_KEY = 'django-insecure-aj_c8(^@-s$#x(7)$zhoxijx1e7q$0s@66s61dgoihhwjh9e^_'
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = False
+DEBUG = config('DEBUG', default=False, cast=bool)
 
 ALLOWED_HOSTS = ['*']
 
@@ -82,30 +83,16 @@ WSGI_APPLICATION = 'sizhengke.wsgi.application'
 # Database
 # https://docs.djangoproject.com/en/3.2/ref/settings/#databases
 
-if DEBUG:
-    DATABASES = {
-        'default': {
-            'ENGINE': 'django.db.backends.mysql',
-            'NAME': 'sizhengke',
-            'USER': 'root',
-            'PASSWORD': '',
-            'HOST': '127.0.0.1',
-            'PORT': '3306',
-        }
+DATABASES = {
+    'default': {
+        'ENGINE': 'django.db.backends.mysql',
+        'NAME': config('DB_NAME'),
+        'USER': config('DB_USER'),
+        'PASSWORD': config('DB_PASSWORD', default=''),
+        'HOST': config('DB_HOST'),
+        'PORT': '3306',
     }
-else:
-    DATABASES = {
-        'default': {
-            'ENGINE': 'django.db.backends.mysql',
-            'NAME': 'sizhengke',
-            'USER': 'root',
-            'PASSWORD': '62!!6kY@vQi@TzbM',
-            'HOST': '172.30.0.12',
-            'PORT': '3306',
-        }
-    }
-
-
+}
 
 # Password validation
 # https://docs.djangoproject.com/en/3.2/ref/settings/#auth-password-validators
@@ -164,7 +151,10 @@ SIMPLEPRO_CHART_DISPLAY = False
 SIMPLEUI_LOGO = 'https://sizhengke-dev-1306868775.cos.ap-chongqing.myqcloud.com/banner.png'
 
 # COS Settings
-COS_SECRET_ID = 'AKIDAC1hAQSGrDKCqHTP6YljSwBBwRjncDZg'
-COS_SECRET_KEY = 'vb2GF0WnqeDXcS3PWP4TdYEeplSu76qL'
-COS_REGION = 'ap-chongqing'
-COS_BUCKET = 'sizhengke-dev-1306868775'
+COS_SECRET_ID = config('COS_SECRET_ID')
+COS_SECRET_KEY = config('COS_SECRET_KEY')
+COS_REGION = config('COS_REGION')
+COS_BUCKET = config('COS_BUCKET')
+
+# Count Of Page
+COP = config('COP', default=10, cast=int)

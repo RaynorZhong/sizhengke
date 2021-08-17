@@ -11,3 +11,5 @@ local_settings.py
 .DS_Store
 # simplepro
 simplepro.lic
+# env
+.env

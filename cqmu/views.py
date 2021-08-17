@@ -1,5 +1,6 @@
 from django.shortcuts import render, get_object_or_404
 from django.http import JsonResponse
+from django.conf import settings
 from .models import *
 
 
@@ -58,7 +59,7 @@ def params_decorator(function):
 
 
 def calc_pages(request, file_upload_list):
-    cp = 3
+    cp = settings.COP
     p = int(request.GET.get('page', 1))
     sp = cp * (p-1)
     ep = sp + cp
