@@ -1,5 +1,6 @@
 from django.contrib import admin
 from .models import *
+from .widgets import FileFieldWidget
 
 
 # Register your models here.
@@ -30,6 +31,9 @@ class FileUploadAdmin(admin.ModelAdmin):
         ('文件信息', {'fields': (('label', 'author', 'presenter'), 'description')}),
         ('更多信息', {'fields': (('grade', 'topic_category'), ('recommended_tag', 'data_source'), 'release_date')})
     )
+    formfield_overrides = {
+        models.FileField: {'widget': FileFieldWidget},
+    }
 
 
 @admin.register(Comment)

@@ -32,6 +32,7 @@ ALLOWED_HOSTS = ['*']
 # Application definition
 
 INSTALLED_APPS = [
+    'cqmu',
     'simplepro',
     'simpleui',
     'import_export',
@@ -41,8 +42,7 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
-    'debug_toolbar',
-    'cqmu'
+    'debug_toolbar'
 ]
 
 MIDDLEWARE = [
