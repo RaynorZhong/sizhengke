@@ -37,10 +37,14 @@
                     </iframe>
 {#                    <iframe src="https://view.officeapps.live.com/op/view.aspx?src={{ file.file.url }}" width='100%' style="min-height: 800px; border: 0;">#}
 {#                    </iframe>#}
+                    <br/><br/>
+                    <button type="button" class="layui-btn layui-btn-primary layui-border-green" onclick="dl('{{ file.file.url }}')">点击下载</button>
                 {% endif %}
                 <!-- Image -->
                 {% if form == 3 %}
                     <img src="{{ file.file.url }}" style="width: 100%;"/>
+                    <br/><br/>
+                    <a href="{{ file.file.url }}" class="layui-btn layui-btn-primary layui-border-green" onclick="dl()">点击下载</a>
                 {% endif %}
                 <!-- Audio -->
                 {% if form == 4 %}
@@ -48,15 +52,17 @@
                         <source src="{{ file.file.url }}" type="audio/mp3" />
                         <embed height="100" width="100" src="{{ file.file.url }}" />
                     </audio>
+                    <br/><br/>
+                    <button type="button" class="layui-btn layui-btn-primary layui-border-green" onclick="dl('{{ file.file.url }}')">点击下载</button>
                 {% endif %}
                 <!-- Video -->
                 {% if form == 5 %}
                     <video src="{{ file.file.url }}" controls="controls" width="100%">
                         您的浏览器不支持 Video 标签。
                     </video>
+                    <br/><br/>
+                    <button type="button" class="layui-btn layui-btn-primary layui-border-green" onclick="dl('{{ file.file.url }}')">点击下载</button>
                 {% endif %}
-                <br/><br/>
-                <button type="button" class="layui-btn layui-btn-primary layui-border-green" onclick="dl('{{ file.file.url }}')">点击下载</button>
             {% else %}
                 暂无内容,请联系管理员。
             {% endif %}
@@ -64,11 +70,13 @@
     </blockquote>
     <!-- DownLoad -->
     <script type="text/javascript">
-        function dl(url) {
+        function dl(url='') {
             layui.use('layer', function(){
                 var layer = layui.layer;
-                // Downloadjs
-                download(url);
+                if(url){
+                    // Downloadjs
+                    download(url);
+                }
                 //显示自动关闭倒计秒数
                 layer.alert('正在下载中...', {
                     time: 3*1000
