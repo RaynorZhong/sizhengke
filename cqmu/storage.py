@@ -26,7 +26,8 @@ class CosStorage(Storage):
                 Bucket=bucket,
                 Body=content.read(),
                 Key=key,
-                EnableMD5=False
+                EnableMD5=False,
+                ContentDisposition='attachment'
             )
         except Exception as e:
             raise

@@ -67,13 +67,8 @@
         function dl(url) {
             layui.use('layer', function(){
                 var layer = layui.layer;
-                try {
-                    // Downloadjs
-                    download(url);
-                } catch (e) {
-                    layer.msg('下载失败，请稍后再试试。');
-                    return
-                }
+                // Downloadjs
+                download(url);
                 //显示自动关闭倒计秒数
                 layer.alert('正在下载中...', {
                     time: 3*1000
