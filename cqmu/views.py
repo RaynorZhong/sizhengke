@@ -1,5 +1,5 @@
 from django.shortcuts import render, get_object_or_404
-from django.http import JsonResponse
+from django.http import JsonResponse, HttpResponseRedirect
 from django.conf import settings
 from .models import *
 
@@ -34,6 +34,7 @@ def file_detail(request, file_upload_id):
             scoring=request.POST['scoring'],
             file_upload=file
         )
+        return HttpResponseRedirect('/{}'.format(file_upload_id))
     comments = Comment.objects.filter(file_upload=file_upload_id, label__isnull=False)[:10]
     context = {
         'file': file,
