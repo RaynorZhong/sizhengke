@@ -25,7 +25,6 @@ def file_list(request):
 
 
 def file_detail(request, file_upload_id):
-    topic_category = TopicCategory.objects.all()
     file = get_object_or_404(FileUpload, pk=file_upload_id)
     if request.method == 'POST':
         Comment.objects.create(
@@ -35,7 +34,13 @@ def file_detail(request, file_upload_id):
             file_upload=file
         )
         return HttpResponseRedirect('/{}'.format(file_upload_id))
+    topic_category = TopicCategory.objects.all()
     comments = Comment.objects.filter(file_upload=file_upload_id, label__isnull=False)[:10]
+
+    # file visits plus one
+    file.visits = file.visits + 1
+    file.save()
+
     context = {
         'file': file,
         'form': file.file_category.form,
@@ -45,6 +50,13 @@ def file_detail(request, file_upload_id):
         'active_topic': file.topic_category
     }
     return render(request, 'cqmu/file_detail.html', context)
+
+
+def add_file_downloads(request, file_upload_id):
+    file = get_object_or_404(FileUpload, pk=file_upload_id)
+    file.downloads = file.downloads + 1
+    file.save()
+    return JsonResponse({'result': 'ok'})
 
 
 def params_decorator(function):

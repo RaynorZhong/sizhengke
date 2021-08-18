@@ -72,11 +72,13 @@
     <script type="text/javascript">
         function dl(url='') {
             layui.use('layer', function(){
-                var layer = layui.layer;
+                var layer = layui.layer
+                ,$ = layui.jquery;
                 if(url){
                     // Downloadjs
                     download(url);
                 }
+                $.get(location.href + 'downloads.json', function(res){});
                 //显示自动关闭倒计秒数
                 layer.alert('正在下载中...', {
                     time: 3*1000

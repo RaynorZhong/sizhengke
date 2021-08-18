@@ -1,7 +1,10 @@
 from django.core.exceptions import ValidationError
+from django.db.models.signals import post_save
 from simplepro.components import fields
+from django.db.models import Avg
 from django.db import models
 from .storage import CosStorage
+from django.dispatch import receiver
 
 # Create your models here.
 
@@ -111,7 +114,7 @@ class FileUpload(models.Model):
     class Meta:
         verbose_name = '文件上传'
         verbose_name_plural = verbose_name
-        ordering = ('-upload_date', '-comment_scoring',)
+        ordering = ('-upload_date', '-comment_scoring', '-id',)
 
     def __str__(self):
         return self.label
@@ -165,3 +168,10 @@ class Comment(models.Model):
 
     def __str__(self):
         return '<{}>的评论'.format(self.file_upload.label)
+
+
+@receiver(post_save, sender=Comment)
+def post_save_comment(instance, **kwargs):
+    avg_comment_scoring = Comment.objects.filter(file_upload=instance.file_upload).aggregate(avg_scoring=Avg('scoring'))
+    instance.file_upload.comment_scoring = avg_comment_scoring['avg_scoring']
+    instance.file_upload.save()
