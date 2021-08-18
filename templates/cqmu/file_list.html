@@ -8,7 +8,7 @@
             <div class="layui-col-md6">
             <div class="layui-row">
                 <div class="layui-col-xs4">
-                    <select name="search_field">
+                    <select name="search_field", lay-verify="search_field" lay-verType="tips">
                         <option selected value="">检索字段</option>
                         <option value="label">文件名</option>
                         <option value="author">作者</option>
@@ -18,7 +18,7 @@
                     </select>
                 </div>
                 <div class="layui-col-xs8">
-                    <input type="text" name="search_field_value" class="layui-input" placeholder="关键字">
+                    <input type="text" name="search_field_value" class="layui-input" placeholder="关键字" id="search_field_value">
                 </div>
             </div>
             </div>
@@ -78,8 +78,7 @@
                 ,max: 1
                 ,range: ['#startDate', '#endDate']
             });
-            function getQueryVariable(variable)
-            {
+            function getQueryVariable(variable) {
                 var query = window.location.search.substring(1);
                 var vars = query.split("&");
                 for (var i=0;i<vars.length;i++) {
@@ -95,7 +94,15 @@
                 ,'file_category': getQueryVariable('file_category')
                 ,'date_min': getQueryVariable('date_min')
                 ,'date_max': getQueryVariable('date_max')
-            })
+            });
+            form.verify({
+                search_field: function(value, item) {
+                    var search_field_value = document.getElementById('search_field_value')
+                    if(value == '' && search_field_value.value != '') {
+                        return '检索关键字请先选择检索字段'
+                    }
+                }
+            });
             form.on('submit(reset)', function(data){
                 window.location.href = '{% url 'index' %}?at=' + data.field.at;
                 return false
