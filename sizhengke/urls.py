@@ -16,9 +16,20 @@ Including another URLconf
 import debug_toolbar
 from django.contrib import admin
 from django.urls import path, include
+from cqmu.models import FileUpload
+from django.contrib.sitemaps.views import sitemap
+from django.contrib.sitemaps import GenericSitemap
+
+info_dict = {
+    'queryset': FileUpload.objects.all(),
+    'date_field': 'upload_date',
+}
 
 urlpatterns = [
     path('', include('cqmu.urls')),
     path('admin/', admin.site.urls, name='index'),
     path('__debug__/', include(debug_toolbar.urls)),
+    path('sitemap.xml', sitemap,
+         {'sitemaps': {'sizhengke': GenericSitemap(info_dict, priority=0.6)}},
+         name='django.contrib.sitemaps.views.sitemap'),
 ]

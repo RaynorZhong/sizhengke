@@ -145,6 +145,9 @@ class FileUpload(models.Model):
                 except NotImplementedError:
                     pass
 
+    def get_absolute_url(self):
+        return "/%i/" % self.id
+
 
 class Comment(models.Model):
     Scoring = [
