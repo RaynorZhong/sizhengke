@@ -64,24 +64,12 @@
                         <ul>
                         {% if active_topic %}
                             <li><div class="layui-menu-body-title">
-                                <a href="{% url 'index' %}">所有类别主题</a>
-                            </div></li>
                         {% else %}
                             <li class="layui-menu-item-checked2"><div class="layui-menu-body-title">
+                        {% endif %}
                                 <a href="{% url 'index' %}">所有类别主题</a>
                             </div></li>
-                        {% endif %}
-                            {% for topic in topic_category %}
-                                {% if topic == active_topic %}
-                                    <li class="layui-menu-item-checked2"><div class="layui-menu-body-title">
-                                        <a href="{% url 'index' %}?at={{ topic.id }}">{{ topic }}</a>
-                                    </div></li>
-                                {% else %}
-                                    <li><div class="layui-menu-body-title">
-                                        <a href="{% url 'index' %}?at={{ topic.id }}">{{ topic }}</a>
-                                    </div></li>
-                                {% endif %}
-                            {% endfor %}
+                            {% include "cqmu/topic_category.html" with topic_category=topic_category active_topic=active_topic tab=0 only %}
                         </ul>
                     </li>
                 </ul>

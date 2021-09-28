@@ -1,0 +1,13 @@
+{% load range_list %}
+{% for topic in topic_category %}
+    {% if topic.label == active_topic.label %}
+        <li class="layui-menu-item-checked2"><div class="layui-menu-body-title">
+    {% else %}
+        <li><div class="layui-menu-body-title">
+    {% endif %}
+            <a href="{% url 'index' %}?at={{ topic.id }}">{% for i in tab|range_list %}&nbsp&nbsp{% endfor %}{{ topic.label }}{% if topic.child %}&nbsp<span class="layui-badge-rim">{{ topic.child|length }}</span>{% endif %}</a>
+        </div></li>
+        {% if topic.child %}
+            {% include "cqmu/topic_category.html" with topic_category=topic.child active_topic=active_topic tab=tab|add:"2" only %}
+        {% endif %}
+{% endfor %}

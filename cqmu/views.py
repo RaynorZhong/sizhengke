@@ -4,6 +4,29 @@ from django.conf import settings
 from .models import *
 
 
+def encode_topic_category(topic_category):
+    def update_list(ul_etc, ul_tc):
+        for i in ul_etc:
+            if i['id'] == ul_tc.parent.id:
+                i['child'].append({'id': ul_tc.id, 'label': ul_tc.label, 'child': []})
+                return ul_etc
+            if len(i['child']) > 0:
+                i['child'] = update_list(i['child'], ul_tc)
+        return ul_etc
+
+    etc = list(map(lambda x: {'id': x.id, 'label': x.label, 'child': []},
+                   (filter(lambda x: x.parent is None, topic_category))))
+    topic_category = list(filter(lambda x: x.parent is not None, topic_category))
+    parent_id = list(map(lambda x: x['id'], etc))
+    while len(parent_id) > 0:
+        pid = parent_id.pop(0)
+        for tc in topic_category:
+            if tc.parent.id == pid:
+                etc = update_list(etc, tc)
+                parent_id.append(tc.id)
+    return etc
+
+
 def file_list(request):
     topic_category = TopicCategory.objects.all()
     grade = Grade.objects.all()
@@ -18,7 +41,7 @@ def file_list(request):
         'file_upload_list': file_upload_list,
         'grade': grade,
         'file_category': file_category,
-        'topic_category': topic_category,
+        'topic_category': encode_topic_category(topic_category),
         'active_topic': active_topic
     }
     return render(request, 'cqmu/file_list.html', context)

@@ -11,6 +11,7 @@ from django.dispatch import receiver
 
 class TopicCategory(models.Model):
     label = fields.CharField(verbose_name='类别主题', max_length=200)
+    parent = fields.ForeignKey(verbose_name='上级分类', to='self', null=True, blank=True, on_delete=models.SET_NULL)
     seq = fields.IntegerField(verbose_name='排序序号', default=0)
 
     def __str__(self):

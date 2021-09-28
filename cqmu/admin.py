@@ -6,7 +6,7 @@ from .widgets import FileFieldWidget
 # Register your models here.
 @admin.register(TopicCategory)
 class TopicCategoryAdmin(admin.ModelAdmin):
-    list_display = ('label', 'seq')
+    list_display = ('label', 'parent', 'seq')
 
 
 @admin.register(Grade)
