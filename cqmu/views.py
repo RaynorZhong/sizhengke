@@ -69,7 +69,7 @@ def file_detail(request, file_upload_id):
         'form': file.file_category.form,
         'comments': comments,
         'scoring': Comment.Scoring,
-        'topic_category': topic_category,
+        'topic_category': encode_topic_category(topic_category),
         'active_topic': file.topic_category
     }
     return render(request, 'cqmu/file_detail.html', context)
