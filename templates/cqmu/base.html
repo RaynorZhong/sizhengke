@@ -23,8 +23,38 @@
             padding-top: 20px;
             min-height: 1250px;
          }
-        .site-menu {
-            min-height: 950px;
+        @media screen and (min-width: 993px) {
+            .site-menu {
+                min-height: 950px;
+            }
+        }
+        @media screen and (max-width: 992px) {
+            .site-menu {
+                display: none;
+            }
+            .site-fix {
+                position: fixed;
+                top: 0;
+                bottom: 0;
+                z-index: 666;
+                min-height: 0;
+                overflow: hidden;
+                background-color: #fff;
+            }
+            .site-tree-mobile {
+                display: block!important;
+                position: fixed;
+                z-index: 16666669;
+                bottom: 15px;
+                left: 15px;
+                width: 50px;
+                height: 50px;
+                line-height: 50px;
+                border-radius: 2px;
+                text-align: center;
+                background-color: #009688;
+                color: #fff;
+            }
         }
         .site-h1 {
             margin-bottom: 20px;
@@ -55,11 +85,11 @@
     <div class="layui-container">
     <div class="layui-row layui-col-space20">
         <!-- 侧边栏 -->
-        <div class="layui-col-sm3">
-            <div class="layui-panel site-menu">
+        <div class="layui-col-md3">
+            <div class="layui-panel site-menu site-fix">
                 <ul class="layui-menu layui-menu-lg">
                     <li class="layui-menu-item-group">
-                        <div class="layui-menu-body-title">类别主题</div>
+                    <div class="layui-menu-body-title">类别主题</div>
                         <hr/>
                         <ul>
                         {% if active_topic %}
@@ -69,7 +99,7 @@
                         {% endif %}
                                 <a href="{% url 'index' %}">所有类别主题</a>
                             </div></li>
-                            {% include "cqmu/topic_category.html" with topic_category=topic_category active_topic=active_topic tab=0 only %}
+                            {% include "cqmu/topic_category.html" with topic_category=topic_category active_topic=active_topic only %}
                         </ul>
                     </li>
                 </ul>
@@ -77,7 +107,7 @@
 
         </div>
         <!-- 主要内容-->
-        <div class="layui-col-sm9 site-content">
+        <div class="layui-col-md9 site-content">
             <div class="layui-row">
                 {% block content %}
                     <p>主要内容</p>
@@ -86,6 +116,10 @@
         </div>
     </div>
     </div>
+
+{#    <div class="site-tree-mobile layui-hide">#}
+{#        <i class="layui-icon layui-icon-spread-left"></i>#}
+{#    </div>#}
 
     <!-- 底部footer -->
     <footer>
