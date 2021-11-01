@@ -148,3 +148,9 @@ def file_list_json(request):
         'data': file_list_data,
     }
     return JsonResponse(data)
+
+
+def file_random(request):
+    file = FileUpload.objects.order_by('?')[0]
+    file_upload_id = file.id
+    return HttpResponseRedirect('/{}'.format(file_upload_id))
