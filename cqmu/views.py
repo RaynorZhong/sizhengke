@@ -30,6 +30,7 @@ def encode_topic_category(topic_category):
 def file_list(request):
     topic_category = TopicCategory.objects.all()
     grade = Grade.objects.all()
+    work_unit = WorkUnit.objects.all()
     file_category = FileCategory.objects.all()
     if request.GET.get('at', None):
         active_topic = TopicCategory.objects.get(pk=int(request.GET['at']))
@@ -40,6 +41,7 @@ def file_list(request):
     context = {
         'file_upload_list': file_upload_list,
         'grade': grade,
+        'work_unit': work_unit,
         'file_category': file_category,
         'topic_category': encode_topic_category(topic_category),
         'active_topic': active_topic
@@ -110,6 +112,7 @@ def file_list_json(request):
     key_filter = {
         'at': 'topic_category',
         'grade': 'grade',
+        'work_unit': 'work_unit',
         'file_category': 'file_category',
         'date_min': 'release_date__gte',
         'date_max': 'release_date__lte'
@@ -126,16 +129,14 @@ def file_list_json(request):
     for f in file_upload_list:
         fd = {
             'label': f.label,
-            'author': f.author,
             'presenter': f.presenter,
             'description': f.description,
-            'data_source': f.data_source,
             'comment_scoring': str(f.comment_scoring),
             'downloads': f.downloads,
             'file': f.file.name,
             'file_category': f.file_category.icon,
             'grade': f.grade.label,
-            'recommended_tag': f.recommended_tag,
+            'work_unit': f.work_unit.label,
             'release_date': f.release_date,
             'topic_category': f.topic_category.label,
             'url': f.url,

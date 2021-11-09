@@ -14,6 +14,11 @@ class GradeAdmin(admin.ModelAdmin):
     list_display = ('label', 'seq')
 
 
+@admin.register(WorkUnit)
+class WorkUnitAdmin(admin.ModelAdmin):
+    list_display = ('label', 'seq')
+
+
 @admin.register(FileCategory)
 class FileCategoryAdmin(admin.ModelAdmin):
     list_display = ('label', 'form', 'seq')
@@ -21,15 +26,15 @@ class FileCategoryAdmin(admin.ModelAdmin):
 
 @admin.register(FileUpload)
 class FileUploadAdmin(admin.ModelAdmin):
-    list_display = ('label', 'file_category', 'topic_category', 'grade', 'visits', 'downloads', 'comment_scoring',
-                    'data_source', 'release_date', 'upload_date')
+    list_display = ('label', 'file_category', 'topic_category', 'grade', 'work_unit', 'downloads', 'comment_scoring',
+                    'visits', 'release_date', 'upload_date')
     search_fields = ('label', 'id')
-    list_filter = ('file_category', 'topic_category', 'grade')
+    list_filter = ('file_category', 'topic_category', 'work_unit', 'grade')
     list_display_links = ('label', )
     fieldsets = (
         ('文件类型', {'fields': ('file_category', 'file', 'url')}),
-        ('文件信息', {'fields': (('label', 'author', 'presenter'), 'description')}),
-        ('更多信息', {'fields': (('grade', 'topic_category'), ('recommended_tag', 'data_source'), 'release_date')})
+        ('文件信息', {'fields': (('label', 'presenter'), 'description')}),
+        ('更多信息', {'fields': (('grade', 'topic_category', 'work_unit'), 'release_date')})
     )
     formfield_overrides = {
         models.FileField: {'widget': FileFieldWidget},

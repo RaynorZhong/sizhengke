@@ -11,10 +11,8 @@
                     <select name="search_field", lay-verify="search_field" lay-verType="tips">
                         <option selected value="">检索字段</option>
                         <option value="label">文件名</option>
-                        <option value="author">作者</option>
-                        <option value="presenter">主讲人</option>
+                        <option value="presenter">人物名称</option>
                         <option value="description">文件描述</option>
-                        <option value="recommended_tag">推荐标签</option>
                     </select>
                 </div>
                 <div class="layui-col-xs8">
@@ -22,7 +20,15 @@
                 </div>
             </div>
             </div>
-            <div class="layui-col-md3">
+            <div class="layui-col-md2">
+                <select class="custom-select" name="work_unit">
+                    <option selected value="">所在单位</option>
+                    {% for wu in work_unit %}
+                        <option value="{{ wu.id }}">{{ wu.label }}</option>
+                    {% endfor %}
+                </select>
+            </div>
+            <div class="layui-col-md2">
                 <select class="custom-select" name="grade">
                     <option selected value="">级别</option>
                     {% for g in grade %}
@@ -30,7 +36,7 @@
                     {% endfor %}
                 </select>
             </div>
-            <div class="layui-col-md3">
+            <div class="layui-col-md2">
                 <select class="custom-select" name="file_category">
                     <option selected value="">文件类型</option>
                     {% for f in file_category %}
@@ -43,13 +49,12 @@
             <div class="layui-col-lg10 layui-col-md9">
                 <div id="date-range" class="layui-inline">
                     <div class="layui-input-inline">
-                        <input type="text" name="date_min" placeholder="发布日期" id="startDate" class="layui-input">
+                        <input type="text" name="date_min" placeholder="发生时间" id="startDate" class="layui-input">
                     </div>
                     <div class="layui-form-mid">-</div>
                     <div class="layui-input-inline">
-                        <input type="text" name="date_max" placeholder="发布日期" id="endDate" class="layui-input">
+                        <input type="text" name="date_max" placeholder="发生时间" id="endDate" class="layui-input">
                     </div>
-
                 </div>
             </div>
             <div class="layui-col-lg2 layui-col-md3">
@@ -139,8 +144,8 @@
                                 '<div class="layui-row">',
                                     '<div class="layui-col-xs8">',
                                         '<span class="layui-badge layui-bg-green">'+ item.topic_category +'</span>',
+                                        '<span class="layui-badge-rim">'+ item.work_unit +'</span>',
                                         '<span class="layui-badge-rim">'+ item.grade +'</span>',
-                                        '<span class="layui-badge-rim">'+ item.data_source +'</span>',
                                     '</div>',
                                     '<div class="layui-col-xs4">',
                                         '<span class="layui-badge-rim">访问 '+ item.visits +'</span>',

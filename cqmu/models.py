@@ -36,6 +36,19 @@ class Grade(models.Model):
         ordering = ('seq',)
 
 
+class WorkUnit(models.Model):
+    label = fields.CharField(verbose_name='所在单位', max_length=200)
+    seq = fields.IntegerField(verbose_name='排序序号', default=0)
+
+    def __str__(self):
+        return self.label
+
+    class Meta:
+        verbose_name = '所在单位'
+        verbose_name_plural = verbose_name
+        ordering = ('seq',)
+
+
 class FileCategory(models.Model):
     FormList = [
         (1, '超链接'),
@@ -98,17 +111,15 @@ class FileUpload(models.Model):
     label = fields.CharField(verbose_name='文件名', max_length=200)
     file = models.FileField('文件', storage=CosStorage(), help_text='文件大小不超过30MB', max_length=200, blank=True, null=True)
     url = models.URLField('URL', help_text='文件类型的展现形式为超链接，本字段必填', blank=True, null=True)
-    author = fields.CharField(verbose_name='作者', max_length=200)
-    presenter = fields.CharField(verbose_name='主讲人', max_length=200)
-    description = fields.CharField(verbose_name='文件描述', input_type='textarea', max_length=200, style='width:500px;', rows=5)
+    presenter = fields.CharField(verbose_name='人物名字', max_length=200)
+    description = fields.CharField(verbose_name='事件描述', input_type='textarea', max_length=200, style='width:500px;', rows=5)
     file_category = fields.ForeignKey(FileCategory, on_delete=models.SET_NULL, null=True, verbose_name='文件类型')
     grade = fields.ForeignKey(Grade, on_delete=models.SET_NULL, null=True, verbose_name='级别')
+    work_unit = fields.ForeignKey(WorkUnit, on_delete=models.SET_NULL, null=True, verbose_name='所在单位')
     topic_category = fields.ForeignKey(TopicCategory, on_delete=models.SET_NULL, null=True, verbose_name='类别主题')
     visits = models.IntegerField('访问次数', default=0)
     downloads = models.IntegerField('下载次数', default=0)
-    recommended_tag = fields.CharField(verbose_name='推荐标签', max_length=200)
-    data_source = fields.CharField(verbose_name='数据来源', max_length=200)
-    release_date = fields.DateField(verbose_name='发布日期', options=options1)
+    release_date = fields.DateField(verbose_name='发生时间', options=options1)
     upload_date = models.DateField('上传日期', auto_now_add=True)
     comment_scoring = models.DecimalField('评分', default=5.0, decimal_places=1, max_digits=2)
 
