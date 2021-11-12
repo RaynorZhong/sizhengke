@@ -20,7 +20,7 @@
         <div class="layui-row layui-col-space15">
             <div class="layui-col-md12">
                 <div class="layui-panel">
-                    <div class="layui-row">
+                    <div class="layui-row" style="margin-top: 10px;">
                         <div class="name layui-col-md2">类别主题</div>
                         <div class="layui-col-md10 layui-tab layui-tab-brief" lay-filter="at">
                             <ul class="layui-tab-title">
@@ -46,18 +46,16 @@
                     </div>
                     <div class="layui-row layui-form-item layui-col-space5">
                         <div class="layui-col-md6">
-                            <div class="layui-row">
-                                <div class="layui-col-xs4">
-                                    <select name="search_field", lay-verify="search_field" lay-verType="tips">
-                                        <option selected value="">检索字段</option>
-                                        <option value="label">文件名</option>
-                                        <option value="presenter">人物名称</option>
-                                        <option value="description">文件描述</option>
-                                    </select>
-                                </div>
-                                <div class="layui-col-xs8">
-                                    <input type="text" name="search_field_value" class="layui-input" placeholder="关键字" id="search_field_value">
-                                </div>
+                            <div class="layui-col-xs4">
+                                <select name="search_field", lay-verify="search_field" lay-verType="tips">
+                                    <option selected value="">检索字段</option>
+                                    <option value="label">文件名</option>
+                                    <option value="presenter">人物名称</option>
+                                    <option value="description">文件描述</option>
+                                </select>
+                            </div>
+                            <div class="layui-col-xs8">
+                                <input type="text" name="search_field_value" class="layui-input" placeholder="关键字" id="search_field_value">
                             </div>
                         </div>
                         <div class="layui-col-md6">
