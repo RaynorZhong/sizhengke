@@ -1,3 +1,5 @@
+{% load static %}
+
 <!DOCTYPE html>
 <html lang="zh-CN">
 <head>
@@ -13,101 +15,189 @@
     <!-- 地域属性 -->
     <meta name="location" content="province=重庆;city=重庆" />
     <!-- Layui 的 CSS 文件 -->
-    <link href="https://www.layuicdn.com/layui-v2.6.8/css/layui.css" rel="stylesheet">
+    <link href="{% static 'layui/css/layui.css' %}" rel="stylesheet">
     <!-- 补充CSS -->
     <style>
         .bg-sizhengke {
-            background-color: #3ba1df !important;
+            background-color: #1E9FFF !important;
+            height: 120px;
         }
         .site-content {
             padding-top: 20px;
-            min-height: 1250px;
          }
-        @media screen and (min-width: 993px) {
-            .site-menu {
-                min-height: 950px;
-            }
+        .logo-style a span {
+            color: azure;
+            font-size: 24px!important;
+            line-height: 120px;
         }
-        @media screen and (max-width: 992px) {
-            .site-menu {
+        .logo-admin {
+            margin-top: 50px;
+        }
+        @media screen and (max-width: 992px){
+            .bg-sizhengke {
+                background-color: #1E9FFF !important;
+                height: 90px;
+            }
+            .logo-admin {
                 display: none;
             }
-            .site-fix {
-                position: fixed;
-                top: 0;
-                bottom: 0;
-                z-index: 666;
-                min-height: 0;
-                overflow: hidden;
-                background-color: #fff;
+            .logo-style a img {
+                width: 50%;
             }
-            .site-tree-mobile {
-                display: block!important;
-                position: fixed;
-                z-index: 16666669;
-                bottom: 15px;
-                left: 15px;
-                width: 50px;
-                height: 50px;
-                line-height: 50px;
-                border-radius: 2px;
-                text-align: center;
-                background-color: #009688;
-                color: #fff;
+            .logo-style a span {
+                color: azure;
+                font-size: 18px!important;
+                line-height: 90px;
             }
         }
-        .site-h1 {
-            margin-bottom: 20px;
-            line-height: 60px;
-            padding-bottom: 10px;
-            color: #393D49;
-            border-bottom: 1px solid #eee;
-            font-size: 28px;
-            font-weight: 300;
+        @media screen and (max-width: 767px){
+            .bg-sizhengke {
+                background-color: #1E9FFF !important;
+                height: 60px;
+            }
+            .logo-style a span {
+                color: azure;
+                font-size: 12px!important;
+                line-height: 60px;
+            }
+        }
+        .layui-bg-white {
+            background-color: white;
+        }
+        .layui-panel .name {
+            height: 61px;
+            line-height: 61px;
+            box-sizing: border-box;
+            padding-left: 20px;
+            float: left;
+            font-size: 14px;
+            color: #333333;
+            position: relative;
+        }
+        .layui-panel .name:after {
+            content: '';
+            display: block;
+            width: 1px;
+            height: 20px;
+            background: #dddddd;
+            position: absolute;
+            left: 100%;
+            top: 50%;
+            margin-top: -10px;
+        }
+        .layui-panel .layui-row {
+            margin-bottom: 10px;
+        }
+        .layui-panel .label {
+            margin:0 10px 10px 10px;
+        }
+        .layui-panel .label h2{
+            overflow: hidden;
+            white-space: nowrap;
+            text-overflow: ellipsis;
+        }
+        .layui-panel .layui-row a {
+            display: block;
+            position: relative;
+        }
+        .layui-panel .layui-row .tagbox{
+            position: absolute;
+            right: 0;
+            top: 0;
+            color: #fff;
+            background: #1E9FFF;
+            padding: 5px 10px;
+            z-index: 20;
+        }
+        .layui-panel .layui-row .txtbox{
+            width: 100%;
+            height: 30px;
+            line-height: 30px;
+            white-space: nowrap;
+            overflow: hidden;
+            text-overflow: ellipsis;
+            background: rgba(0, 0, 0, .5);
+            position: absolute;
+            left: 0;
+            bottom: 0;
+            z-index: 20;
+            box-sizing: border-box;
+            padding: 0 15px;
+            color: #fff;
+            font-size: 14px;
+        }
+        .layui-panel .layui-row .imgbox{
+            font-size: 0;
+            overflow: hidden;
+        }
+        .description {
+            overflow: hidden;
+            display: -webkit-box;
+            -webkit-box-orient: vertical;
+            -webkit-line-clamp: 3;
+        }
+        .layui-flow-more:after, .layui-flow-more:before {
+            content: "";
+            display: block;
+            clear: both;
         }
     </style>
         <title>思想政治资源数据库系统</title>
 </head>
 <body>
     <!-- Layui 的 JavaScript -->
-    <script src="https://www.layuicdn.com/layui-v2.6.8/layui.js"></script>
+    <script src="{% static 'layui/layui.js' %}"></script>
     <!-- Download -->
     <script src="https://cdn.bootcdn.net/ajax/libs/downloadjs/1.4.8/download.min.js"></script>
 
-    <!-- 顶部Logo -->
+    <!-- 顶部 Logo-->
     <nav class="layui-header bg-sizhengke">
         <div class="layui-container">
-            <a href="{% url 'index' %}"><img src="https://sizhengke-dev-1306868775.cos.ap-chongqing.myqcloud.com/logo.png"/><span class="layui-font-18" style="color: azure"> | 思想政治资源数据库系统</span></a>
-            <a href="{% url 'admin:index' %}" class="layui-font-12 layui-font-cyan" style="float: right;margin-top: 20px;">管理后台</a>
+            <div class="layui-row">
+                <div class="logo-style layui-col-md11 layui-col-xs12">
+                    <a href="{% url 'index' %}">
+                        <img src="https://sizhengke-dev-1306868775.cos.ap-chongqing.myqcloud.com/logo.png"/>
+                        <span>&nbsp;&nbsp;|&nbsp;思想政治资源数据库系统</span>
+                    </a>
+                </div>
+                <div class="layui-col-md1 logo-admin">
+                    <a href="{% url 'admin:index' %}" class="layui-font-12 layui-font-cyan">管理后台</a>
+                </div>
+            </div>
         </div>
     </nav>
-
+    <!-- 导航条 -->
     <div class="layui-container">
-    <div class="layui-row layui-col-space20">
-        <!-- 侧边栏 -->
-        <div class="layui-col-md3">
-            <div class="layui-panel site-menu site-fix">
-                <ul class="layui-menu layui-menu-lg">
-                    <li class="layui-menu-item-group">
-                    <div class="layui-menu-body-title">类别主题</div>
-                        <hr/>
-                        <ul>
-                        {% if active_topic %}
-                            <li><div class="layui-menu-body-title">
-                        {% else %}
-                            <li class="layui-menu-item-checked2"><div class="layui-menu-body-title">
-                        {% endif %}
-                                <a href="{% url 'index' %}">所有类别主题</a>
-                            </div></li>
-                            {% include "cqmu/topic_category.html" with topic_category=topic_category active_topic=active_topic only %}
-                        </ul>
-                    </li>
-                </ul>
-            </div>
-
-        </div>
+        <ul class="layui-nav layui-bg-white" lay-filter="">
+                <li class="layui-nav-item" lay-unselect><a class="layui-font-black" href="{% url 'index' %}">首页</a></li>
+            <!-- 类别主题 -->
+            {% for topic in topic_category %}
+                {% if topic.child %}
+                    <li class="layui-nav-item" lay-unselect id="nav{{ topic.id }}"><a class="layui-font-black" href="{% url 'index' %}?at={{ topic.id }}">{{ topic.label }}
+                        <i class="layui-icon layui-icon-down layui-font-12"></i>
+                    </a></li>
+                {% else %}
+                    <li class="layui-nav-item" lay-unselect><a class="layui-font-black" href="{% url 'index' %}?at={{ topic.id }}">{{ topic.label }}</a></li>
+                {% endif %}
+            {% endfor %}
+            <script type="text/javascript">
+                layui.use('dropdown', function(){
+                    var dropdown = layui.dropdown
+                    {% include "cqmu/topic_category.html" with topic_category=topic_category active_topic=active_topic level=1 only %}
+                });
+            </script>
+        </ul>
+    </div>
+    <div class="layui-container">
+    <!-- 轮播/简介 -->
+    <div class="layui-row">
+        {% block banner %}
+            <p>轮播/简介</p>
+        {% endblock banner %}
+    </div>
+    <div class="layui-row">
         <!-- 主要内容-->
-        <div class="layui-col-md9 site-content">
+        <div class="layui-col-md12 site-content">
             <div class="layui-row">
                 {% block content %}
                     <p>主要内容</p>
@@ -116,10 +206,6 @@
         </div>
     </div>
     </div>
-
-{#    <div class="site-tree-mobile layui-hide">#}
-{#        <i class="layui-icon layui-icon-spread-left"></i>#}
-{#    </div>#}
 
     <!-- 底部footer -->
     <footer>

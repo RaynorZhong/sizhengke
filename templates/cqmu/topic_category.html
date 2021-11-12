@@ -1,21 +1,30 @@
 {% load range_list %}
 {% for topic in topic_category %}
-    {% if topic.child %}
-        <li class="layui-menu-item-group layui-menu-item-down" lay-options="{type: 'group'}">
-            <div class="layui-menu-body-title">
-                {{ topic.label}} <i class="layui-icon layui-icon-up"></i>
-            </div>
-            <ul>
-                {% include "cqmu/topic_category.html" with topic_category=topic.child active_topic=active_topic only %}
-            </ul>
-        </li>
-    {% else %}
-        {% if topic.label == active_topic.label %}
-            <li class="layui-menu-item-checked2"><div class="layui-menu-body-title">
-        {% else %}
-            <li><div class="layui-menu-body-title">
+    {% if level == 1 %}
+        {% if topic.child %}
+            dropdown.render({
+                elem: '#nav{{ topic.id }}'
+                ,trigger: 'hover'
+                ,id: 'nav{{ topic.id }}'
+                ,href: '{% url 'index' %}?at={{ topic.id }}'
+                ,data: [
+                    {% include "cqmu/topic_category.html" with topic_category=topic.child active_topic=active_topic level=level|add:1 only %}
+                ]});
         {% endif %}
-            <a href="{% url 'index' %}?at={{ topic.id }}">{{ topic.label }}</a>
-            </div></li>
+    {% endif %}
+    {% if level > 1 %}
+        {% if topic.child %}
+            {title: '{{ topic.label }}'
+            ,id: 'nav{{ topic.id }}'
+            ,href: '{% url 'index' %}?at={{ topic.id }}'
+            ,child: [
+                {% include "cqmu/topic_category.html" with topic_category=topic.child active_topic=active_topic level=level|add:1 only %}
+            ]},
+        {% else %}
+            {title: '{{ topic.label }}'
+             ,id: 'nav{{ topic.id }}'
+             ,href: '{% url 'index' %}?at={{ topic.id }}'
+            },
+        {% endif %}
     {% endif %}
 {% endfor %}

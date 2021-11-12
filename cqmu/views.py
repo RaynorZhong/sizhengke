@@ -44,7 +44,12 @@ def file_list(request):
         'work_unit': work_unit,
         'file_category': file_category,
         'topic_category': encode_topic_category(topic_category),
-        'active_topic': active_topic
+        'active_topic': active_topic,
+        'active_grade': request.GET.get('grade', ''),
+        'active_work_unit': request.GET.get('work_unit', ''),
+        'active_file_category': request.GET.get('file_category', ''),
+        'active_date_min': request.GET.get('date_min', ''),
+        'active_date_max': request.GET.get('date_max', ''),
     }
     return render(request, 'cqmu/file_list.html', context)
 
@@ -69,6 +74,7 @@ def file_detail(request, file_upload_id):
     context = {
         'file': file,
         'form': file.file_category.form,
+        'icon': file.file_category.icon,
         'comments': comments,
         'scoring': Comment.Scoring,
         'topic_category': encode_topic_category(topic_category),

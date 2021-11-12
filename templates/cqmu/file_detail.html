@@ -1,23 +1,50 @@
 {% extends "cqmu/base.html" %}
 
-{% block content %}
-    <h1 class="site-h1">{{ file.label }}</h1>
+{% block banner %}
     <div class="layui-row">
-        <div class="layui-col-xs9">
-            <span class="layui-badge layui-bg-green">{{ file.topic_category }}</span>
-            <span class="layui-badge-rim">{{ file.grade }}</span>
-            <span class="layui-badge layui-bg-gray">发生时间 {{ file.release_date }}</span>
-        </div>
-        <div class="layui-col-xs3">
-            <span class="layui-badge-rim">访问 {{ file.visits }}</span>
-            <span class="layui-badge-rim">下载 {{ file.downloads }}</span>
-            <span class="layui-badge-rim">评分 {{ file.comment_scoring }}</span>
+        <div class="layui-col-md12">
+            <div class="layui-panel">
+                <div class="layui-row layui-col-space25" style="margin: 0;">
+                    <div class="layui-col-sm5">
+                        <img src="{{ icon }}" style="width: 100%;"/>
+                    </div>
+                    <div class="layui-col-sm7">
+                        <div class="layui-row">
+                            <h1 class="site-h1">{{ file.label }}</h1>
+                        </div>
+                        <hr/>
+                        <div class="layui-row">
+                            <span class="layui-badge layui-bg-blue">{{ file.topic_category }}</span>
+                            <span class="layui-badge-rim">{{ file.work_unit }}</span>
+                            <span class="layui-badge-rim">{{ file.presenter }}</span>
+                            <span class="layui-badge layui-bg-gray">发生时间 {{ file.release_date }}</span>
+                        </div>
+                        <div class="layui-row">
+                            <blockquote class="layui-elem-quote layui-quote-nm">
+                                <p class="description">{{ file.description }}</p>
+                            </blockquote>
+                        </div>
+                        <br/>
+                        <br/>
+                        <div class="layui-row">
+                            <div class="layui-col-sm6 layui-col-sm-offset6 layui-col-md4 layui-col-md-offset8">
+                                <span class="layui-badge-rim">访问 {{ file.visits }}</span>
+                                <span class="layui-badge-rim">下载 {{ file.downloads }}</span>
+                                <span class="layui-badge-rim">评分 {{ file.comment_scoring }}</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
         </div>
     </div>
-    <div class="layui-row layui-text" style="margin-top: 15px;">
-        <p>{{ file.description }}</p>
-    </div>
+{% endblock banner %}
 
+{% block content %}
+    <!-- Comment -->
+    <fieldset class="layui-elem-field layui-field-title" style="margin-top: 20px;">
+        <legend>文件内容</legend>
+    </fieldset>
     <blockquote class="layui-elem-quote" style="margin-top: 15px;">
         <!-- Link -->
         {% if form == 1 %}
@@ -37,13 +64,13 @@
 {#                    <iframe src="https://view.officeapps.live.com/op/view.aspx?src={{ file.file.url }}" width='100%' style="min-height: 800px; border: 0;">#}
 {#                    </iframe>#}
                     <br/><br/>
-                    <button type="button" class="layui-btn layui-btn-primary layui-border-green" onclick="dl('{{ file.file.url }}')">点击下载</button>
+                    <button type="button" class="layui-btn layui-btn-primary layui-border-blue" onclick="dl('{{ file.file.url }}')">点击下载</button>
                 {% endif %}
                 <!-- Image -->
                 {% if form == 3 %}
                     <img src="{{ file.file.url }}" style="width: 100%;"/>
                     <br/><br/>
-                    <a href="{{ file.file.url }}" class="layui-btn layui-btn-primary layui-border-green" onclick="dl()">点击下载</a>
+                    <a href="{{ file.file.url }}" class="layui-btn layui-btn-primary layui-border-blue" onclick="dl()">点击下载</a>
                 {% endif %}
                 <!-- Audio -->
                 {% if form == 4 %}
@@ -52,7 +79,7 @@
                         <embed height="100" width="100" src="{{ file.file.url }}" />
                     </audio>
                     <br/><br/>
-                    <button type="button" class="layui-btn layui-btn-primary layui-border-green" onclick="dl('{{ file.file.url }}')">点击下载</button>
+                    <button type="button" class="layui-btn layui-btn-primary layui-border-blue" onclick="dl('{{ file.file.url }}')">点击下载</button>
                 {% endif %}
                 <!-- Video -->
                 {% if form == 5 %}
@@ -60,7 +87,7 @@
                         您的浏览器不支持 Video 标签。
                     </video>
                     <br/><br/>
-                    <button type="button" class="layui-btn layui-btn-primary layui-border-green" onclick="dl('{{ file.file.url }}')">点击下载</button>
+                    <button type="button" class="layui-btn layui-btn-primary layui-border-blue" onclick="dl('{{ file.file.url }}')">点击下载</button>
                 {% endif %}
             {% else %}
                 暂无内容,请联系管理员。
@@ -145,7 +172,7 @@
                 </div>
                 <input type="text" name="nickname" value="王五" hidden/>
                 <div class="layui-form-item">
-                    <button class="layui-btn" lay-submit lay-filter="formDemo">评论</button>
+                    <button class="layui-btn layui-btn-normal" lay-submit lay-filter="formDemo">评论</button>
                     <button type="reset" class="layui-btn layui-btn-primary">重置</button>
                 </div>
             </form>

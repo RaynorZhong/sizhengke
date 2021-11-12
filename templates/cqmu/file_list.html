@@ -1,69 +1,64 @@
 {% extends "cqmu/base.html" %}
 
+{% block banner %}
+    <div class="layui-carousel" id="banner">
+        <div carousel-item>
+            <div><img src="https://sizhengke-dev-1306868775.cos.ap-chongqing.myqcloud.com/xxss.jpg"></div>
+            <div><img src="https://sizhengke-dev-1306868775.cos.ap-chongqing.myqcloud.com/xxss.jpg"></div>
+            <div><img src="https://sizhengke-dev-1306868775.cos.ap-chongqing.myqcloud.com/xxss.jpg"></div>
+        </div>
+    </div>
+{% endblock banner %}
+
 {% block content %}
-    <h1 class="site-h1">{{ active_topic|default:"所有类别主题" }}</h1>
     <form class="layui-form" lay-filter="search_form">
         <input type="hidden" name="at" value="{{ active_topic.id }}">
-        <div class="layui-form-item layui-row layui-col-space5">
-            <div class="layui-col-md6">
-            <div class="layui-row">
-                <div class="layui-col-xs4">
-                    <select name="search_field", lay-verify="search_field" lay-verType="tips">
-                        <option selected value="">检索字段</option>
-                        <option value="label">文件名</option>
-                        <option value="presenter">人物名称</option>
-                        <option value="description">文件描述</option>
-                    </select>
-                </div>
-                <div class="layui-col-xs8">
-                    <input type="text" name="search_field_value" class="layui-input" placeholder="关键字" id="search_field_value">
-                </div>
-            </div>
-            </div>
-            <div class="layui-col-md2">
-                <select class="custom-select" name="work_unit">
-                    <option selected value="">所在单位</option>
-                    {% for wu in work_unit %}
-                        <option value="{{ wu.id }}">{{ wu.label }}</option>
-                    {% endfor %}
-                </select>
-            </div>
-            <div class="layui-col-md2">
-                <select class="custom-select" name="grade">
-                    <option selected value="">级别</option>
-                    {% for g in grade %}
-                        <option value="{{ g.id }}">{{ g.label }}</option>
-                    {% endfor %}
-                </select>
-            </div>
-            <div class="layui-col-md2">
-                <select class="custom-select" name="file_category">
-                    <option selected value="">文件类型</option>
-                    {% for f in file_category %}
-                        <option value="{{ f.id }}">{{ f.label }}</option>
-                    {% endfor %}
-                </select>
-            </div>
-        </div>
-        <div class="layui-form-item layui-row layui-col-space5">
-            <div class="layui-col-lg10 layui-col-md9">
-                <div id="date-range" class="layui-inline">
-                    <div class="layui-input-inline">
-                        <input type="text" name="date_min" placeholder="发生时间" id="startDate" class="layui-input">
+        <div class="layui-row layui-col-space15">
+            <div class="layui-col-md12">
+                <div class="layui-panel">
+                    <div class="layui-row">
+                        <div class="name layui-col-md2">类别主题</div>
+                        <div class="layui-col-md10 layui-tab layui-tab-brief" lay-filter="at">
+                            <ul class="layui-tab-title">
+                                <li class="layui-this">{% if active_topic %}{{ active_topic }}{% else %}所有类别主题{% endif %}</li>
+                            </ul>
+                        </div>
                     </div>
-                    <div class="layui-form-mid">-</div>
-                    <div class="layui-input-inline">
-                        <input type="text" name="date_max" placeholder="发生时间" id="endDate" class="layui-input">
+
+                    {% include "cqmu/search_panel.html" with search_list=grade active=active_grade title='级别' filter='grade' only %}
+                    {% include "cqmu/search_panel.html" with search_list=file_category active=active_file_category title='文件类型' filter='file_category'  only %}
+                    {% include "cqmu/search_panel.html" with search_list=work_unit active=active_work_unit title='所在单位' filter='work_unit'  only %}
+                    <div class="layui-row">
+                        <div class="name layui-col-md2">发生时间</div>
+                        <div class="layui-col-md10 layui-tab layui-tab-brief" lay-filter="at">
+                            <ul class="layui-tab-title">
+                                <li class="layui-this">{% if active_topic %}{{ active_topic }}{% else %}全部{% endif %}</li>
+                                <li>2021年</li>
+                                <li>2020年</li>
+                                <li>2019年</li>
+                                <li>2019年以前</li>
+                            </ul>
+                        </div>
                     </div>
-                </div>
-            </div>
-            <div class="layui-col-lg2 layui-col-md3">
-                <div class="layui-row layui-col-space5">
-                    <div class="layui-col-lg6 layui-col-md6 layui-col-xs2">
-                        <button class="layui-btn" lay-submit lay-filter="search">检索</button>
-                    </div>
-                    <div class="layui-col-lg6 layui-col-md6 layui-col-xs2">
-                        <button class="layui-btn layui-btn-primary" lay-submit lay-filter="reset">重置</button>
+                    <div class="layui-row layui-form-item layui-col-space5">
+                        <div class="layui-col-md6">
+                            <div class="layui-row">
+                                <div class="layui-col-xs4">
+                                    <select name="search_field", lay-verify="search_field" lay-verType="tips">
+                                        <option selected value="">检索字段</option>
+                                        <option value="label">文件名</option>
+                                        <option value="presenter">人物名称</option>
+                                        <option value="description">文件描述</option>
+                                    </select>
+                                </div>
+                                <div class="layui-col-xs8">
+                                    <input type="text" name="search_field_value" class="layui-input" placeholder="关键字" id="search_field_value">
+                                </div>
+                            </div>
+                        </div>
+                        <div class="layui-col-md6">
+                            <button class="layui-btn layui-btn-normal" lay-submit lay-filter="search">检索</button>
+                        </div>
                     </div>
                 </div>
             </div>
@@ -72,7 +67,62 @@
 
     <!-- JavaScript -->
     <script type="text/javascript">
-        layui.use(['laydate', 'flow', 'form'], function() {
+        layui.use(['laydate', 'flow', 'form', 'carousel', 'element'], function() {
+            function getQueryVariable(variable) {
+                var query = window.location.search.substring(1);
+                var vars = query.split("&");
+                for (var i=0; i<vars.length; i++) {
+                    var pair = vars[i].split("=");
+                    if(pair[0] == variable){return pair[1];}
+                }
+                return '';
+            }
+            function putQueryVariable(variable, value) {
+                var query = window.location.search.substring(1);
+                var vars = query.split("&");
+                var after_vars = []
+                var is_variable = false;
+                for (var i=0; i<vars.length; i++) {
+                    var pair = vars[i].split("=");
+                    if (pair[0] == variable){
+                        if(value){
+                            after_vars.push(variable + "=" + value);
+                        }
+                        is_variable = true;
+                        continue;
+                    }
+                    if (vars[i] != "") {
+                        after_vars.push(vars[i])
+                    }
+                }
+                if (!is_variable && value) {
+                    after_vars.push(variable + "=" + value);
+                }
+                return after_vars.join("&")
+            }
+            var carousel = layui.carousel;
+            carousel.render({
+                elem: '#banner'
+                ,width: '100%' //设置容器宽度
+                ,arrow: 'hover' //始终显示箭头
+                ,interval: 10000
+                ,indicator: 'none'
+                ,height: '380px'
+                //,anim: 'updown' //切换动画方式
+            });
+            var element = layui.element;
+            element.tabChange('grade', {{ active_grade }});
+            element.tabChange('file_category', {{ active_file_category }});
+            element.tabChange('work_unit', {{ active_work_unit }});
+            element.on('tab(grade)', function() {
+                window.location.href = '{% url 'index' %}?' + putQueryVariable('grade', this.getAttribute('lay-id'));
+            });
+            element.on('tab(file_category)', function() {
+                window.location.href = '{% url 'index' %}?' + putQueryVariable('file_category', this.getAttribute('lay-id'));
+            });
+            element.on('tab(work_unit)', function() {
+                window.location.href = '{% url 'index' %}?' + putQueryVariable('work_unit', this.getAttribute('lay-id'));
+            });
             var laydate = layui.laydate,
                 $ = layui.jquery,
                 flow = layui.flow,
@@ -83,22 +133,9 @@
                 ,max: 1
                 ,range: ['#startDate', '#endDate']
             });
-            function getQueryVariable(variable) {
-                var query = window.location.search.substring(1);
-                var vars = query.split("&");
-                for (var i=0;i<vars.length;i++) {
-                    var pair = vars[i].split("=");
-                    if(pair[0] == variable){return pair[1];}
-                }
-                return '';
-            }
             form.val('search_form', {
                 'search_field': getQueryVariable('search_field')
                 ,'search_field_value': decodeURIComponent(getQueryVariable('search_field_value'))
-                ,'grade': getQueryVariable('grade')
-                ,'file_category': getQueryVariable('file_category')
-                ,'date_min': getQueryVariable('date_min')
-                ,'date_max': getQueryVariable('date_max')
             });
             form.verify({
                 search_field: function(value, item) {
@@ -107,10 +144,6 @@
                         return '检索关键字请先选择检索字段'
                     }
                 }
-            });
-            form.on('submit(reset)', function(data){
-                window.location.href = '{% url 'index' %}?at=' + data.field.at;
-                return false
             });
             flow.load({
                 elem: '#flow-default'
@@ -125,94 +158,68 @@
                     $.get(get_url, function(res){
                         layui.each(res.data, function(index, item){
                             var html = [
-                                '<div class="layui-row layui-col-space15 layui-anim layui-anim-fadein">',
-                                '<div class="layui-col-md12">',
-                                '<div class="layui-panel">',
-                                '<div class="layui-row layui-col-space10" style="margin: 10px;">',
-                                    '<div class="layui-col-xs3">',
-                                        '<a href="{% url 'index' %}'+ item.id +'/"><image src="'+ item.file_category +'" style="width: 100%;"/></a>',
-                                    '</div>',
-                                '<div class="layui-col-xs9">',
-                                '<div class="layui-row">',
-                                    '<div class="layui-col-xs8">',
-                                        '<a href="{% url 'index' %}'+ item.id +'/"><h3>'+ item.label +'</h3></a>',
-                                    ' </div>',
-                                    '<div class="layui-col-xs4">',
-                                        '<span class="layui-badge layui-bg-gray">发布日期'+ item.release_date +'</span>',
-                                    '</div>',
-                                '</div>',
-                                '<div class="layui-row">',
-                                    '<div class="layui-col-xs8">',
-                                        '<span class="layui-badge layui-bg-green">'+ item.topic_category +'</span>',
-                                        '<span class="layui-badge-rim">'+ item.work_unit +'</span>',
-                                        '<span class="layui-badge-rim">'+ item.grade +'</span>',
-                                    '</div>',
-                                    '<div class="layui-col-xs4">',
-                                        '<span class="layui-badge-rim">访问 '+ item.visits +'</span>',
-                                        '<span class="layui-badge-rim">下载 '+ item.downloads +'</span>',
-                                        '<span class="layui-badge-rim">评分 '+ item.comment_scoring +'</span>',
+                                '<div class="layui-col-md4 layui-anim layui-anim-fadein">',
+                                    '<div class="layui-panel">',
+                                        '<div class="layui-row">',
+                                            '<a href="{% url 'index' %}'+ item.id +'/">',
+                                                '<div class="tagbox" title="'+ item.label +'">'+ item.topic_category +'</div>',
+                                                '<div class="txtbox" title="'+ item.label +'">'+ item.work_unit +'</div>',
+                                                '<div class="imgbox"><image src="'+ item.file_category +'" style="width: 100%;" title="'+ item.label +'"/></div>',
+                                            '</a>',
+                                        '</div>',
+                                        '<div class="layui-row label">',
+                                            '<a href="{% url 'index' %}'+ item.id +'/"><h2 title="'+ item.label +'">'+ item.label +'</h2></a>',
+                                        '</div>',
+                                        '<div class="layui-row label">',
+                                            '<div class="layui-col-xs6">',
+                                                '<span class="layui-badge-rim">'+ item.presenter +'</span>',
+                                            '</div>',
+                                            '<div class="layui-col-xs6">',
+                                                '<span class="layui-badge-rim">访问 '+ item.visits +'</span>',
+                                                '<span class="layui-badge-rim">下载 '+ item.downloads +'</span>',
+                                                '<span class="layui-badge-rim">评分 '+ item.comment_scoring +'</span>',
+                                            '</div>',
+                                        '</div>',
                                     '</div>',
                                 '</div>',
-                                '<hr/>',
-                                '<div class="layui-row layui-text">',
-                                    '<p>'+ item.description +'</p>',
-                                '</div>',
-                                '</div>',
-                                '</div>',
-                                '</div>',
-                                '</div>',
-                                '</div>'
                             ].join('');
                             lis.push(html);
                         });
                         next(lis.join(''), page < res.pages);
                     });
                 }
-            });
+             });
         });
     </script>
-
+    <br/>
     <fieldset class="layui-elem-field layui-field-title">
-        <legend>文件列表</legend>
+        <legend>思政文件</legend>
     </fieldset>
 
     {% if file_upload_list %}
-        <div id="flow-default">
+        <div id="flow-default" class="layui-row layui-col-space25">
 {#        {% for file in file_upload_list %}#}
-{#            <div class="layui-row layui-col-space15 layui-anim layui-anim-fadein">#}
-{#                <div class="layui-col-md12">#}
-{#                    <div class="layui-panel">#}
-{#                    <div class="layui-row layui-col-space10" style="margin: 10px;">#}
-{#                        <div class="layui-col-xs3 layui-bg-cyan" style="height: 100px;">#}
-{#                            <a href="{% url 'file_detail' file.id %}"><h2>{{ file.file_category }}</h2></a>#}
-{#                        </div>#}
-{#                        <div class="layui-col-xs9">#}
-{#                            <div class="layui-row">#}
-{#                                <div class="layui-col-xs8">#}
-{#                                    <a href="{% url 'file_detail' file.id %}"><h3>{{ file.label }}</h3></a>#}
-{#                                </div>#}
-{#                                <div class="layui-col-xs4">#}
-{#                                    <span class="layui-badge layui-bg-gray">发布日期 {{ file.release_date }}</span>#}
-{#                                </div>#}
-{#                            </div>#}
-{#                            <div class="layui-row">#}
-{#                                <div class="layui-col-xs8">#}
-{#                                    <span class="layui-badge layui-bg-green">{{ file.topic_category }}</span>#}
-{#                                    <span class="layui-badge-rim">{{ file.grade }}</span>#}
-{#                                    <span class="layui-badge-rim">{{ file.data_source }}</span>#}
-{#                                </div>#}
-{#                                <div class="layui-col-xs4">#}
-{#                                    <span class="layui-badge-rim">访问 {{ file.visits }}</span>#}
-{#                                    <span class="layui-badge-rim">下载 {{ file.downloads }}</span>#}
-{#                                    <span class="layui-badge-rim">评分 {{ file.comment_scoring }}</span>#}
-{#                                </div>#}
-{#                            </div>#}
-{#                            <hr/>#}
-{#                            <div class="layui-row layui-text">#}
-{#                                <p>{{ file.description }}</p>#}
-{#                            </div>#}
-{#                        </div>#}
+{#            <div class="layui-col-md4 layui-anim layui-anim-fadein">#}
+{#                <div class="layui-panel">#}
+{#                    <div class="layui-row">#}
+{#                        <a href="{% url 'file_detail' file.id %}">#}
+{#                            <div class="tagbox" title="{{ file.label }}">{{ file.topic_category }}</div>#}
+{#                            <div class="txtbox" title="{{ file.label }}">{{ file.work_unit }}</div>#}
+{#                            <div class="imgbox"><image src="{{ file.file_category.icon }}" style="width: 100%;" title="{{ file.label }}"/></div>#}
+{#                        </a>#}
 {#                    </div>#}
+{#                    <div class="layui-row label">#}
+{#                        <a href="{% url 'file_detail' file.id %}"><h2 title="{{ file.label }}">{{ file.label }}</h2></a>#}
+{#                    </div>#}
+{#                    <div class="layui-row label">#}
+{#                        <div class="layui-col-xs6">#}
+{#                            <span class="layui-badge-rim">人物名称: {{ file.presenter }}</span>#}
+{#                        </div>#}
+{#                        <div class="layui-col-xs6">#}
+{#                            <span class="layui-badge-rim">访问 {{ file.visits }}</span>#}
+{#                            <span class="layui-badge-rim">下载 {{ file.downloads }}</span>#}
+{#                            <span class="layui-badge-rim">评分 {{ file.comment_scoring }}</span>#}
+{#                        </div>#}
 {#                    </div>#}
 {#                </div>#}
 {#            </div>#}
