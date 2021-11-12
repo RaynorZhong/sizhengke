@@ -19,9 +19,14 @@ class WorkUnitAdmin(admin.ModelAdmin):
     list_display = ('label', 'seq')
 
 
+@admin.register(Banner)
+class BannerAdmin(admin.ModelAdmin):
+    list_display = ('big_size', 'small_size', 'seq')
+
+
 @admin.register(FileCategory)
 class FileCategoryAdmin(admin.ModelAdmin):
-    list_display = ('label', 'form', 'seq')
+    list_display = ('label', 'form', 'icon', 'seq')
 
 
 @admin.register(FileUpload)

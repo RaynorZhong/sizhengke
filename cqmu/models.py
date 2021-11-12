@@ -49,6 +49,17 @@ class WorkUnit(models.Model):
         ordering = ('seq',)
 
 
+class Banner(models.Model):
+    big_size = models.URLField('主题图片-大尺寸')
+    small_size = models.URLField('主题图片-小尺寸')
+    seq = fields.IntegerField(verbose_name='排序序号', default=0)
+
+    class Meta:
+        verbose_name = '主题图片'
+        verbose_name_plural = verbose_name
+        ordering = ('seq',)
+
+
 class FileCategory(models.Model):
     FormList = [
         (1, '超链接'),

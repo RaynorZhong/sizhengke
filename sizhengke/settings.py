@@ -153,7 +153,7 @@ INTERNAL_IPS = [
 SIMPLEPRO_INFO = False
 # 配置Simple Pro是否显示首页的图标，默认为True，显示图表，False不显示
 SIMPLEPRO_CHART_DISPLAY = False
-SIMPLEUI_LOGO = 'https://sizhengke-dev-1306868775.cos.ap-chongqing.myqcloud.com/banner.png'
+SIMPLEUI_LOGO = 'https://site-1306868775.cos.ap-chongqing.myqcloud.com/banner.png'
 
 # COS Settings
 COS_SECRET_ID = config('COS_SECRET_ID')

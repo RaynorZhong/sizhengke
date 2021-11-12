@@ -32,6 +32,7 @@ def file_list(request):
     grade = Grade.objects.all()
     work_unit = WorkUnit.objects.all()
     file_category = FileCategory.objects.all()
+    banner = Banner.objects.all()
     if request.GET.get('at', None):
         active_topic = TopicCategory.objects.get(pk=int(request.GET['at']))
         file_upload_list = FileUpload.objects.filter(topic_category=active_topic)[:1]
@@ -41,6 +42,7 @@ def file_list(request):
     context = {
         'file_upload_list': file_upload_list,
         'grade': grade,
+        'banner': banner,
         'work_unit': work_unit,
         'file_category': file_category,
         'topic_category': encode_topic_category(topic_category),

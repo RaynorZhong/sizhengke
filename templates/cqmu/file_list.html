@@ -3,9 +3,9 @@
 {% block banner %}
     <div class="layui-carousel" id="banner">
         <div carousel-item>
-            <div><img src="https://sizhengke-dev-1306868775.cos.ap-chongqing.myqcloud.com/xxss.jpg"></div>
-            <div><img src="https://sizhengke-dev-1306868775.cos.ap-chongqing.myqcloud.com/xxss.jpg"></div>
-            <div><img src="https://sizhengke-dev-1306868775.cos.ap-chongqing.myqcloud.com/xxss.jpg"></div>
+            {% for b in banner %}
+                <div><img src="{{ b.big_size }}"></div>
+            {% endfor %}
         </div>
     </div>
 {% endblock banner %}
