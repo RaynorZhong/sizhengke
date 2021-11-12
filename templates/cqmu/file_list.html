@@ -6,6 +6,10 @@
             {% for b in banner %}
                 <div><img src="{{ b.big_size }}"></div>
             {% endfor %}
+            <!-- 缺省banner图 -->
+            {% if banner|length == 0 %}
+                <div><img src="https://site-1306868775.cos.ap-chongqing.myqcloud.com/banner1140.jpg"></div>
+            {% endif %}
         </div>
     </div>
 {% endblock banner %}
@@ -168,11 +172,12 @@
                                             '</a>',
                                         '</div>',
                                         '<div class="layui-row label">',
-                                            '<a href="{% url 'index' %}'+ item.id +'/"><h2 title="'+ item.label +'">'+ item.label +'</h2></a>',
+                                            '<a href="{% url 'index' %}'+ item.id +'/"><h3 title="'+ item.label +'">'+ item.label +'</h3></a>',
                                         '</div>',
                                         '<div class="layui-row label">',
                                             '<div class="layui-col-xs6">',
-                                                '<span class="layui-badge-rim">'+ item.presenter +'</span>',
+                                                '<span class="layui-badge-rim">人物名称: '+ item.presenter +'</span>',
+                                                '<span class="layui-badge-rim">'+ item.grade +'</span>',
                                             '</div>',
                                             '<div class="layui-col-xs6">',
                                                 '<span class="layui-badge-rim">访问 '+ item.visits +'</span>',

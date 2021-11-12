@@ -39,7 +39,7 @@ class FileUploadAdmin(admin.ModelAdmin):
     fieldsets = (
         ('文件类型', {'fields': ('file_category', 'file', 'url')}),
         ('文件信息', {'fields': (('label', 'presenter'), 'description')}),
-        ('更多信息', {'fields': (('grade', 'topic_category', 'work_unit'), 'release_date')})
+        ('更多信息', {'fields': ('grade', 'topic_category', 'work_unit', 'release_date')})
     )
     formfield_overrides = {
         models.FileField: {'widget': FileFieldWidget},

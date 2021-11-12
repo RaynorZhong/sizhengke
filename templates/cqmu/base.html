@@ -19,44 +19,35 @@
     <!-- 补充CSS -->
     <style>
         .bg-sizhengke {
-            background-color: #1E9FFF !important;
-            height: 120px;
+            height: 90px;
+            border-bottom: 1px solid #cfcfcf;
+            box-shadow: 1px 1px 4px rgb(0, 0, 0, 8%);
         }
         .site-content {
             padding-top: 20px;
          }
         .logo-style a span {
-            color: azure;
-            font-size: 24px!important;
-            line-height: 120px;
+            color: #393D49;
+            font-size: 20px!important;
+            line-height: 90px;
         }
         .logo-admin {
-            margin-top: 50px;
+            margin-top: 35px;
         }
         @media screen and (max-width: 992px){
-            .bg-sizhengke {
-                background-color: #1E9FFF !important;
-                height: 90px;
-            }
             .logo-admin {
                 display: none;
             }
             .logo-style a img {
                 width: 50%;
             }
-            .logo-style a span {
-                color: azure;
-                font-size: 18px!important;
-                line-height: 90px;
-            }
         }
         @media screen and (max-width: 767px){
             .bg-sizhengke {
-                background-color: #1E9FFF !important;
                 height: 60px;
             }
             .logo-style a span {
-                color: azure;
+                color: #393D49;
                 font-size: 12px!important;
                 line-height: 60px;
             }
@@ -91,10 +82,11 @@
         .layui-panel .label {
             margin:0 10px 10px 10px;
         }
-        .layui-panel .label h2{
+        .layui-panel .label h3{
             overflow: hidden;
             white-space: nowrap;
             text-overflow: ellipsis;
+            font-weight: bold;
         }
         .layui-panel .layui-row a {
             display: block;
