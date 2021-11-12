@@ -1,0 +1,11 @@
+<div class="layui-row">
+    <div class="name layui-col-md2">{{ title }}</div>
+    <div class="layui-col-md10 layui-tab layui-tab-brief" lay-filter="{{ filter }}">
+        <ul class="layui-tab-title">
+            <li class="layui-this">全部</li>
+            {% for sl in search_list %}
+                <li lay-id="{{ sl.id }}">{{ sl.label }}</li>
+            {% endfor %}
+        </ul>
+    </div>
+</div>
