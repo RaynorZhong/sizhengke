@@ -1,6 +1,7 @@
 from django.contrib import admin
 from .models import *
 from .widgets import FileFieldWidget
+from django.utils.safestring import mark_safe
 
 
 # Register your models here.
@@ -21,12 +22,28 @@ class WorkUnitAdmin(admin.ModelAdmin):
 
 @admin.register(Banner)
 class BannerAdmin(admin.ModelAdmin):
-    list_display = ('big_size', 'small_size', 'seq')
+    list_display = ('big_size_img', 'small_size_img', 'seq')
+    readonly_fields = ('big_size_img', 'small_size_img')
+
+    def big_size_img(self, obj):
+        return mark_safe('<img src="%s" width="300px;" />' % obj.big_size)
+
+    def small_size_img(self, obj):
+        return mark_safe('<img src="%s" width="150px;" />' % obj.small_size)
+
+    big_size_img.short_description = '主题图片-大尺寸'
+    small_size_img.short_description = '主题图片-小尺寸'
 
 
 @admin.register(FileCategory)
 class FileCategoryAdmin(admin.ModelAdmin):
-    list_display = ('label', 'form', 'icon', 'seq')
+    list_display = ('label', 'form', 'icon_img', 'seq')
+    readonly_fields = ('icon_img', )
+
+    def icon_img(self, obj):
+        return mark_safe('<img src="%s" width="150px;" />' % obj.icon)
+
+    icon_img.short_description = '文件类型展示图片'
 
 
 @admin.register(FileUpload)

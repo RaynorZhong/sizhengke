@@ -4,11 +4,17 @@
     <div class="layui-carousel" id="banner">
         <div carousel-item>
             {% for b in banner %}
-                <div><img src="{{ b.big_size }}"></div>
+                <div>
+                    <img src="{{ b.big_size }}" class="big_size">
+                    <img src="{{ b.small_size }}" class="small_size">
+                </div>
             {% endfor %}
             <!-- 缺省banner图 -->
             {% if banner|length == 0 %}
-                <div><img src="https://site-1306868775.cos.ap-chongqing.myqcloud.com/banner1140.jpg"></div>
+                <div>
+                    <img src="https://site-1306868775.cos.ap-chongqing.myqcloud.com/banner1140.jpg" class="big_size">
+                    <img src="https://site-1306868775.cos.ap-chongqing.myqcloud.com/banner375.jpg" class="small_size">
+                </div>
             {% endif %}
         </div>
     </div>
