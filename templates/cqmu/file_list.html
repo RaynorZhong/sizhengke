@@ -34,13 +34,13 @@
                     {% include "cqmu/search_panel.html" with search_list=work_unit active=active_work_unit title='所在单位' filter='work_unit'  only %}
                     <div class="layui-row">
                         <div class="name layui-col-md2">发生时间</div>
-                        <div class="layui-col-md10 layui-tab layui-tab-brief" lay-filter="at">
+                        <div class="layui-col-md10 layui-tab layui-tab-brief" lay-filter="release_date">
                             <ul class="layui-tab-title">
                                 <li class="layui-this">全部</li>
-                                <li>2021年</li>
-                                <li>2020年</li>
-                                <li>2019年</li>
-                                <li>2019年以前</li>
+                                <li lay-id="2021">2021年</li>
+                                <li lay-id="2020">2020年</li>
+                                <li lay-id="2019">2019年</li>
+                                <li lay-id="2018">2018年</li>
                             </ul>
                         </div>
                     </div>
@@ -116,6 +116,7 @@
             element.tabChange('grade', {{ active_grade }});
             element.tabChange('file_category', {{ active_file_category }});
             element.tabChange('work_unit', {{ active_work_unit }});
+            element.tabChange('release_date', {{ active_release_date }});
             element.on('tab(grade)', function() {
                 window.location.href = '{% url 'index' %}?' + putQueryVariable('grade', this.getAttribute('lay-id'));
             });
@@ -124,6 +125,12 @@
             });
             element.on('tab(work_unit)', function() {
                 window.location.href = '{% url 'index' %}?' + putQueryVariable('work_unit', this.getAttribute('lay-id'));
+            });
+            element.on('tab(release_date)', function() {
+                window.location.href = '{% url 'index' %}?' + putQueryVariable('release_date', this.getAttribute('lay-id'));
+            });
+            element.on('nav(sort)', function() {
+                window.location.href = '{% url 'index' %}?' + putQueryVariable('sort', this.getAttribute('lay-id'));
             });
             var laydate = layui.laydate,
                 $ = layui.jquery,
@@ -197,6 +204,23 @@
     <br/>
     <fieldset class="layui-elem-field layui-field-title">
         <legend>思政文件</legend>
+        <ul class="layui-nav layui-bg-gray" style="text-align: right;" lay-bar="disabled" lay-filter="sort">
+            <li class="layui-nav-item" lay-unselect>
+                <a href="javascript:;" class="layui-btn layui-btn-xs layui-btn-primary layui-border-black layui-font-12" lay-id="visits">
+                    访问<i class="layui-icon layui-icon-down layui-font-12"></i>
+                </a>
+            </li>
+            <li class="layui-nav-item" lay-unselect>
+                <a href="javascript:;" class="layui-btn layui-btn-xs layui-btn-primary layui-border-black layui-font-12" lay-id="downloads">
+                    下载<i class="layui-icon layui-icon-down layui-font-12"></i>
+                </a>
+            </li>
+            <li class="layui-nav-item" lay-unselect>
+                <a href="javascript:;" class="layui-btn layui-btn-xs layui-btn-primary layui-border-black layui-font-12" lay-id="comment_scoring">
+                    评分<i class="layui-icon layui-icon-down layui-font-12"></i>
+                </a>
+            </li>
+        </ul>
     </fieldset>
 
     {% if file_upload_list %}

@@ -137,7 +137,7 @@ class FileUpload(models.Model):
     class Meta:
         verbose_name = '文件上传'
         verbose_name_plural = verbose_name
-        ordering = ('-upload_date', '-comment_scoring', '-id',)
+        ordering = ('-upload_date', '-id')
 
     def __str__(self):
         return self.label

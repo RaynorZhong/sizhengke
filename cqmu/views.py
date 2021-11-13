@@ -50,8 +50,7 @@ def file_list(request):
         'active_grade': request.GET.get('grade', ''),
         'active_work_unit': request.GET.get('work_unit', ''),
         'active_file_category': request.GET.get('file_category', ''),
-        'active_date_min': request.GET.get('date_min', ''),
-        'active_date_max': request.GET.get('date_max', ''),
+        'active_release_date': request.GET.get('release_date', ''),
     }
     return render(request, 'cqmu/file_list.html', context)
 
@@ -122,15 +121,18 @@ def file_list_json(request):
         'grade': 'grade',
         'work_unit': 'work_unit',
         'file_category': 'file_category',
-        'date_min': 'release_date__gte',
-        'date_max': 'release_date__lte'
+        'release_date': 'release_date__year'
     }
     for g in request.GET:
-        if request.GET.get(g, None) and g in ['at', 'grade', 'file_category', 'date_min', 'date_max']:
+        if request.GET.get(g, None) and g in ['at', 'grade', 'work_unit',  'file_category', 'release_date']:
             kwargs_dict[key_filter[g]] = request.GET.get(g)
+    # search key
     if request.GET.get('search_field', None) and request.GET.get('search_field_value', None):
         kwargs_dict['{}__contains'.format(request.GET.get('search_field'))] = request.GET.get('search_field_value')
     file_upload_list = file_upload_list.filter(**kwargs_dict)
+    # sort
+    if request.GET.get('sort', None):
+        file_upload_list = file_upload_list.order_by('-{}'.format(request.GET.get('sort')))
     sp, ep, pages = calc_pages(request, file_upload_list)
     file_upload_list = file_upload_list[sp:ep]
     file_list_data = []
