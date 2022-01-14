@@ -14,7 +14,7 @@
                         </div>
                         <hr/>
                         <div class="layui-row">
-                            <span class="layui-badge layui-bg-blue">{{ file.topic_category }}</span>
+                            <span class="layui-badge layui-bg-green">{{ file.topic_category }}</span>
                             <span class="layui-badge-rim">{{ file.work_unit }}</span>
                             <span class="layui-badge-rim">{{ file.presenter }}</span>
                             <span class="layui-badge layui-bg-gray">发生时间 {{ file.release_date }}</span>
@@ -64,13 +64,13 @@
 {#                    <iframe src="https://view.officeapps.live.com/op/view.aspx?src={{ file.file.url }}" width='100%' style="min-height: 800px; border: 0;">#}
 {#                    </iframe>#}
                     <br/><br/>
-                    <button type="button" class="layui-btn layui-btn-primary layui-border-blue" onclick="dl('{{ file.file.url }}')">点击下载</button>
+                    <button type="button" class="layui-btn layui-btn-primary layui-border-green" onclick="dl('{{ file.file.url }}')">点击下载</button>
                 {% endif %}
                 <!-- Image -->
                 {% if form == 3 %}
                     <img src="{{ file.file.url }}" style="width: 100%;"/>
                     <br/><br/>
-                    <a href="{{ file.file.url }}" class="layui-btn layui-btn-primary layui-border-blue" onclick="dl()">点击下载</a>
+                    <a href="{{ file.file.url }}" class="layui-btn layui-btn-primary layui-border-green" onclick="dl()">点击下载</a>
                 {% endif %}
                 <!-- Audio -->
                 {% if form == 4 %}
@@ -79,7 +79,7 @@
                         <embed height="100" width="100" src="{{ file.file.url }}" />
                     </audio>
                     <br/><br/>
-                    <button type="button" class="layui-btn layui-btn-primary layui-border-blue" onclick="dl('{{ file.file.url }}')">点击下载</button>
+                    <button type="button" class="layui-btn layui-btn-primary layui-border-green" onclick="dl('{{ file.file.url }}')">点击下载</button>
                 {% endif %}
                 <!-- Video -->
                 {% if form == 5 %}
@@ -87,7 +87,7 @@
                         您的浏览器不支持 Video 标签。
                     </video>
                     <br/><br/>
-                    <button type="button" class="layui-btn layui-btn-primary layui-border-blue" onclick="dl('{{ file.file.url }}')">点击下载</button>
+                    <button type="button" class="layui-btn layui-btn-primary layui-border-green" onclick="dl('{{ file.file.url }}')">点击下载</button>
                 {% endif %}
             {% else %}
                 暂无内容,请联系管理员。
@@ -172,7 +172,7 @@
                 </div>
                 <input type="text" name="nickname" value="王五" hidden/>
                 <div class="layui-form-item">
-                    <button class="layui-btn layui-btn-normal" lay-submit lay-filter="formDemo">评论</button>
+                    <button class="layui-btn" lay-submit lay-filter="formDemo">评论</button>
                     <button type="reset" class="layui-btn layui-btn-primary">重置</button>
                 </div>
             </form>

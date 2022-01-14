@@ -65,7 +65,7 @@
                             </div>
                         </div>
                         <div class="layui-col-md6">
-                            <button class="layui-btn layui-btn-normal" lay-submit lay-filter="search">检索</button>
+                            <button class="layui-btn" lay-submit lay-filter="search">检索</button>
                         </div>
                     </div>
                 </div>
@@ -176,14 +176,14 @@
                                 '<div class="layui-col-md4 layui-anim layui-anim-fadein">',
                                     '<div class="layui-panel">',
                                         '<div class="layui-row">',
-                                            '<a href="{% url 'index' %}'+ item.id +'/">',
+                                            '<a href="{% url 'home' %}'+ item.id +'/">',
                                                 '<div class="tagbox" title="'+ item.label +'">'+ item.topic_category +'</div>',
                                                 '<div class="txtbox" title="'+ item.label +'">'+ item.work_unit +'</div>',
                                                 '<div class="imgbox"><image src="'+ item.file_category +'" style="width: 100%;" title="'+ item.label +'"/></div>',
                                             '</a>',
                                         '</div>',
                                         '<div class="layui-row label">',
-                                            '<a href="{% url 'index' %}'+ item.id +'/"><h3 title="'+ item.label +'">'+ item.label +'</h3></a>',
+                                            '<a href="{% url 'home' %}'+ item.id +'/"><h3 title="'+ item.label +'">'+ item.label +'</h3></a>',
                                         '</div>',
                                         '<div class="layui-row label">',
                                             '<div class="layui-col-xs6">',
