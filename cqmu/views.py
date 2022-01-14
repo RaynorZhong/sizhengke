@@ -165,3 +165,10 @@ def file_random(request):
     file = FileUpload.objects.order_by('?')[0]
     file_upload_id = file.id
     return HttpResponseRedirect('/{}'.format(file_upload_id))
+
+
+def home(request):
+    context = {
+        'banner': HomeBanner.objects.all()
+    }
+    return render(request, 'cqmu/home.html', context)

@@ -60,6 +60,16 @@ class Banner(models.Model):
         ordering = ('seq',)
 
 
+class HomeBanner(models.Model):
+    big_size = models.URLField('首页图片')
+    seq = fields.IntegerField(verbose_name='排序序号', default=0)
+
+    class Meta:
+        verbose_name = '首页图片'
+        verbose_name_plural = verbose_name
+        ordering = ('seq',)
+
+
 class FileCategory(models.Model):
     FormList = [
         (1, '超链接'),

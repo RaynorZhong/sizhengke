@@ -8,8 +8,8 @@
     <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
     <meta name="referrer" content="origin">
     <!-- SEO -->
-    <meta name="keywords"  content="重庆医学院,思想政治资源数据库,思政课,思政,思想政治,思政数据库" />
-    <meta name="description" content="思想政治资源数据库" />
+    <meta name="keywords"  content="重庆医学院,护理学院,思想政治资源数据库,思政课,思政,思想政治,思政数据库,课程思政资源库" />
+    <meta name="description" content="课程思政资源库" />
     <!-- Webkit内核 -->
     <meta name="renderer" content="webkit">
     <!-- 地域属性 -->
@@ -19,7 +19,7 @@
     <!-- 补充CSS -->
     <style>
         .bg-sizhengke {
-            height: 90px;
+            z-index: 1000;
             border-bottom: 1px solid #cfcfcf;
             box-shadow: 1px 1px 4px rgb(0, 0, 0, 8%);
         }
@@ -27,12 +27,27 @@
             padding-top: 20px;
          }
         .logo-style a span {
-            color: #393D49;
+            color: #416d71;
             font-size: 20px!important;
             line-height: 90px;
         }
         .logo-admin {
             margin-top: 35px;
+        }
+        @media screen and (min-width: 993px){
+            .index-pc{
+                float: left;
+                text-align: center;
+                line-height: 75px;
+                background-size: contain;
+                width: 70px;
+                height: 75px;
+                background: url("https://site-1306868775.cos.ap-chongqing.myqcloud.com/icon18.png") left center no-repeat;
+            }
+            .index-pc a{
+                color: #9F2D31 !important;
+                background: #FCD34B;
+            }
         }
         @media screen and (max-width: 992px){
             .logo-admin {
@@ -43,9 +58,6 @@
             }
         }
         @media screen and (max-width: 767px){
-            .bg-sizhengke {
-                height: 60px;
-            }
             .logo-style a span {
                 color: #393D49;
                 font-size: 12px!important;
@@ -63,8 +75,9 @@
                 display: none;
             }
         }
-        .layui-bg-white {
-            background-color: white;
+        .layui-bg-sz-red {
+            background-color: #C71F25;
+            padding: 0;
         }
         .layui-tab {
             margin: 0;
@@ -148,7 +161,7 @@
             clear: both;
         }
     </style>
-        <title>思想政治资源数据库系统</title>
+        <title>课程思政资源库</title>
 </head>
 <body>
     <!-- Layui 的 JavaScript -->
@@ -157,13 +170,13 @@
     <script src="https://cdn.bootcdn.net/ajax/libs/downloadjs/1.4.8/download.min.js"></script>
 
     <!-- 顶部 Logo-->
-    <nav class="layui-header bg-sizhengke">
+    <nav class="bg-sizhengke">
         <div class="layui-container">
             <div class="layui-row">
                 <div class="logo-style layui-col-md11 layui-col-xs12">
                     <a href="{% url 'index' %}">
                         <img src="https://site-1306868775.cos.ap-chongqing.myqcloud.com/logo.png"/>
-                        <span>&nbsp;&nbsp;|&nbsp;思想政治资源数据库系统</span>
+                        <span>&nbsp;&nbsp;|&nbsp;课程思政资源库</span>
                     </a>
                 </div>
                 <div class="layui-col-md1 logo-admin">
@@ -171,46 +184,49 @@
                 </div>
             </div>
         </div>
-    </nav>
-    <!-- 导航条 -->
-    <div class="layui-container">
-        <ul class="layui-nav layui-bg-white" lay-filter="">
-                <li class="layui-nav-item" lay-unselect><a class="layui-font-black" href="{% url 'index' %}">首页</a></li>
-            <!-- 类别主题 -->
-            {% for topic in topic_category %}
-                {% if topic.child %}
-                    <li class="layui-nav-item" lay-unselect id="nav{{ topic.id }}"><a class="layui-font-black" href="{% url 'index' %}?at={{ topic.id }}">{{ topic.label }}
-                        <i class="layui-icon layui-icon-down layui-font-12"></i>
-                    </a></li>
-                {% else %}
-                    <li class="layui-nav-item" lay-unselect><a class="layui-font-black" href="{% url 'index' %}?at={{ topic.id }}">{{ topic.label }}</a></li>
-                {% endif %}
-            {% endfor %}
-            <script type="text/javascript">
-                layui.use('dropdown', function(){
-                    var dropdown = layui.dropdown
-                    {% include "cqmu/topic_category.html" with topic_category=topic_category active_topic=active_topic level=1 only %}
-                });
-            </script>
-        </ul>
-    </div>
-    <div class="layui-container">
-    <!-- 轮播/简介 -->
-    <div class="layui-row">
-        {% block banner %}
-            <p>轮播/简介</p>
-        {% endblock banner %}
-    </div>
-    <div class="layui-row">
-        <!-- 主要内容-->
-        <div class="layui-col-md12 site-content">
-            <div class="layui-row">
-                {% block content %}
-                    <p>主要内容</p>
-                {% endblock content %}
+
+        <!-- 导航条 -->
+        <div class="layui-bg-sz-red">
+            <div class="layui-container">
+                <ul class="layui-nav layui-bg-sz-red" lay-filter="" lay-bar="disabled">
+                    <li class="layui-nav-item index-pc" lay-unselect><a class="layui-font-white" href="{% url 'index' %}">首页</a></li>
+                    <!-- 类别主题 -->
+                    {% for topic in topic_category %}
+                        {% if topic.child %}
+                            <li class="layui-nav-item" lay-unselect id="nav{{ topic.id }}"><a class="layui-font-white" href="{% url 'index' %}?at={{ topic.id }}">{{ topic.label }}
+                                <i class="layui-icon layui-icon-down layui-font-12"></i>
+                            </a></li>
+                        {% else %}
+                            <li class="layui-nav-item" lay-unselect><a class="layui-font-white" href="{% url 'index' %}?at={{ topic.id }}">{{ topic.label }}</a></li>
+                        {% endif %}
+                    {% endfor %}
+                    <script type="text/javascript">
+                        layui.use('dropdown', function(){
+                            var dropdown = layui.dropdown
+                            {% include "cqmu/topic_category.html" with topic_category=topic_category active_topic=active_topic level=1 only %}
+                        });
+                    </script>
+                </ul>
             </div>
         </div>
-    </div>
+    </nav>
+    <div class="layui-container site-content">
+        <!-- 轮播/简介 -->
+        <div class="layui-row">
+            {% block banner %}
+                <p>轮播/简介</p>
+            {% endblock banner %}
+        </div>
+        <div class="layui-row">
+            <!-- 主要内容-->
+            <div class="layui-col-md12 site-content">
+                <div class="layui-row">
+                    {% block content %}
+                        <p>主要内容</p>
+                    {% endblock content %}
+                </div>
+            </div>
+        </div>
     </div>
 
     <!-- 底部footer -->

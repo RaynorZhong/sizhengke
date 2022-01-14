@@ -1,0 +1,140 @@
+{% load static %}
+
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <!-- 必须的 meta 标签 -->
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+    <meta name="referrer" content="origin">
+    <!-- SEO -->
+    <meta name="keywords"  content="重庆医学院,护理学院,思想政治资源数据库,思政课,思政,思想政治,思政数据库,课程思政资源库" />
+    <meta name="description" content="课程思政资源库" />
+    <!-- Webkit内核 -->
+    <meta name="renderer" content="webkit">
+    <!-- 地域属性 -->
+    <meta name="location" content="province=重庆;city=重庆" />
+    <!-- Layui 的 CSS 文件 -->
+    <link href="{% static 'layui/css/layui.css' %}" rel="stylesheet">
+    <!-- 补充CSS -->
+    <style>
+        .home-header {
+            width: 100%;
+            overflow: hidden;
+            position: absolute;
+            z-index: 999;
+            background-color: rgb(255, 255, 255, 70%);
+        }
+        .logo-style a span {
+            color: #416d71;
+            font-size: 20px!important;
+            line-height: 90px;
+        }
+        .logo-admin {
+            margin-top: 35px;
+        }
+        @media screen and (max-width: 992px){
+            .logo-admin {
+                display: none;
+            }
+            .logo-style a img {
+                width: 50%;
+            }
+        }
+        @media screen and (max-width: 767px){
+            .logo-style a span {
+                color: #393D49;
+                font-size: 12px!important;
+                line-height: 60px;
+            }
+        }
+        @media screen and (min-width: 1920px) {
+            .layui-container-banner {
+                width: 1920px!important;
+            }
+        }
+        .home-box {
+            height: 1080px;
+            overflow: hidden;
+            position: relative;
+        }
+        .footer-bg {
+            background-color: #601210;
+            border-top: 1px solid #af0a1a;
+        }
+        .footer-font {
+            background-color: black;
+        }
+    </style>
+        <title>课程思政资源库</title>
+</head>
+<body>
+    <!-- Layui 的 JavaScript -->
+    <script src="{% static 'layui/layui.js' %}"></script>
+    <!-- Download -->
+    <script src="https://cdn.bootcdn.net/ajax/libs/downloadjs/1.4.8/download.min.js"></script>
+
+    <!-- 顶部 Logo-->
+    <nav class="home-header">
+        <div class="layui-container">
+            <div class="layui-row">
+                <div class="logo-style layui-col-md11 layui-col-xs12">
+                    <a href="{% url 'index' %}">
+                        <img src="https://site-1306868775.cos.ap-chongqing.myqcloud.com/logo.png"/>
+                        <span>&nbsp;&nbsp;|&nbsp;课程思政资源库</span>
+                    </a>
+                </div>
+                <div class="layui-col-md1 logo-admin">
+                    <a href="{% url 'index' %}" class="layui-font-12 layui-btn layui-btn-sm">进入课程</a>
+                </div>
+            </div>
+        </div>
+    </nav>
+    <!-- 轮播/简介 -->
+    <div class="layui-container layui-container-banner home-box">
+        <div class="layui-carousel" id="banner">
+            <div carousel-item>
+                {% for b in banner %}
+                    <div>
+                        <img src="{{ b.big_size }}" class="big_size">
+                    </div>
+                {% endfor %}
+                <!-- 缺省banner图 -->
+                {% if banner|length == 0 %}
+                    <div>
+                        <img src="https://site-1306868775.cos.ap-chongqing.myqcloud.com/home1.jpg" class="big_size">
+                    </div>
+                {% endif %}
+            </div>
+        </div>
+    </div>
+    <!-- JavaScript -->
+    <script>
+        layui.use('carousel', function(){
+            var carousel = layui.carousel;
+            carousel.render({
+                elem: '#banner'
+                ,width: '100%' //设置容器宽度
+                ,arrow: 'none'
+                ,interval: 3000
+                ,indicator: 'inside'
+                ,height: '1080px'
+                ,anim: 'fade'
+            });
+        });
+    </script>
+    <!-- 底部footer -->
+    <footer>
+        <div class="footer-bg" style="height: 120px;">
+
+        </div>
+        <div class="footer-font">
+            <div class="layui-container" style="height: 24px;">
+                <div class="layui-row">
+                    <span style="margin-top: 20px;" class="layui-font-14 layui-font-gray">&copy; 2021 sizhengke.com.cn, all rights reserved <a href="https://beian.miit.gov.cn/#/Integrated/index" target="_blank" class="layui-font-gray">渝ICP备2021008574号-1</a></span>
+                </div>
+            </div>
+        </div>
+    </footer>
+</body>
+</html>
