@@ -62,6 +62,7 @@ class Banner(models.Model):
 
 class HomeBanner(models.Model):
     big_size = models.URLField('首页图片')
+    is_open = fields.SwitchField(verbose_name='是否开放', default=False)
     seq = fields.IntegerField(verbose_name='排序序号', default=0)
 
     class Meta:

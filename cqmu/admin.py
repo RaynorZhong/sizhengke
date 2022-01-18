@@ -37,7 +37,7 @@ class BannerAdmin(admin.ModelAdmin):
 
 @admin.register(HomeBanner)
 class HomeBannerAdmin(admin.ModelAdmin):
-    list_display = ('big_size_img', 'seq')
+    list_display = ('big_size_img', 'is_open', 'seq')
     readonly_fields = ('big_size_img',)
 
     def big_size_img(self, obj):

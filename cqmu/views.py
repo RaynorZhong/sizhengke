@@ -169,6 +169,6 @@ def file_random(request):
 
 def home(request):
     context = {
-        'banner': HomeBanner.objects.all()
+        'banner': HomeBanner.objects.filter(is_open=True)
     }
     return render(request, 'cqmu/home.html', context)

@@ -138,6 +138,9 @@ STATICFILES_DIRS = [
     BASE_DIR / "static",
     ]
 
+# 配置simpleui静态文件离线模式 不填该项或者为False的时候，默认从第三方的cdn获取
+SIMPLEUI_STATIC_OFFLINE = True
+
 # Default primary key field type
 # https://docs.djangoproject.com/en/3.2/ref/settings/#default-auto-field
 
