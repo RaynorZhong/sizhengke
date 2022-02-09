@@ -173,17 +173,18 @@
     <nav class="bg-sizhengke">
         <div class="layui-container">
             <div class="layui-row">
-                <div class="logo-style layui-col-md11 layui-col-xs12">
+                <div class="logo-style layui-col-md10 layui-col-xs12">
                     <a href="{% url 'index' %}">
                         <img src="https://site-1306868775.cos.ap-chongqing.myqcloud.com/logo.png"/>
                         <span>&nbsp;&nbsp;|&nbsp;课程思政资源库</span>
                     </a>
                 </div>
-                <div class="layui-col-md1 logo-admin">
+                <div class="layui-col-md2 logo-admin">
+                    <span class="layui-font-12 layui-font-cyan">{{ request.user.get_short_name|default:"老师" }},您好!</span>
                     {% if open_admin_site %}
-                        <a href="{% url 'admin:index' %}" class="layui-font-12 layui-font-cyan">进入后台</a>
+                        [<a href="{% url 'admin:index' %}" class="layui-font-12 layui-font-cyan">进入后台</a>|<a href="{% url 'admin:logout' %}" class="layui-font-12 layui-font-cyan">退出登录</a>]
                     {% else %}
-                        <span class="layui-font-12 layui-font-cyan">{{ request.user.get_short_name|default:"老师" }}，您好！</span>
+                        [<a href="{% url 'admin:logout' %}" class="layui-font-12 layui-font-cyan">退出登录</a>]
                     {% endif %}
                 </div>
             </div>
