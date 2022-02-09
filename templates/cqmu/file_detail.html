@@ -170,7 +170,7 @@
                         <textarea name="label" placeholder="请输入内容" class="layui-textarea"></textarea>
                     </div>
                 </div>
-                <input type="text" name="nickname" value="王五" hidden/>
+                <input type="text" name="nickname" value="{{ request.user.get_short_name|default:"老师" }}" hidden/>
                 <div class="layui-form-item">
                     <button class="layui-btn" lay-submit lay-filter="formDemo">评论</button>
                     <button type="reset" class="layui-btn layui-btn-primary">重置</button>

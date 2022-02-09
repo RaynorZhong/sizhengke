@@ -27,7 +27,7 @@ info_dict = {
 
 urlpatterns = [
     path('', include('cqmu.urls')),
-    path('admin/', admin.site.urls, name='index'),
+    path('admin/', admin.site.urls, name='admin'),
     path('__debug__/', include(debug_toolbar.urls)),
     path('sitemap.xml', sitemap,
          {'sitemaps': {'sizhengke': GenericSitemap(info_dict, priority=0.6)}},

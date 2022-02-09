@@ -1,5 +1,6 @@
 from django.shortcuts import render, get_object_or_404
 from django.http import JsonResponse, HttpResponseRedirect
+from django.contrib.auth.decorators import login_required
 from django.conf import settings
 from .models import *
 
@@ -27,6 +28,7 @@ def encode_topic_category(topic_category):
     return etc
 
 
+@login_required()
 def file_list(request):
     topic_category = TopicCategory.objects.all()
     grade = Grade.objects.all()
@@ -51,10 +53,12 @@ def file_list(request):
         'active_work_unit': request.GET.get('work_unit', ''),
         'active_file_category': request.GET.get('file_category', ''),
         'active_release_date': request.GET.get('release_date', ''),
+        'open_admin_site': request.user.has_perm('cqmu.open_admin_site'),
     }
     return render(request, 'cqmu/file_list.html', context)
 
 
+@login_required()
 def file_detail(request, file_upload_id):
     file = get_object_or_404(FileUpload, pk=file_upload_id)
     if request.method == 'POST':

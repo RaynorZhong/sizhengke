@@ -21,6 +21,9 @@ class TopicCategory(models.Model):
         verbose_name = '类别主题'
         verbose_name_plural = verbose_name
         ordering = ('seq',)
+        permissions = [
+            ('open_admin_site', 'Can enter the admin site'),
+        ]
 
 
 class Grade(models.Model):
@@ -62,7 +65,7 @@ class Banner(models.Model):
 
 class HomeBanner(models.Model):
     big_size = models.URLField('首页图片')
-    is_open = fields.SwitchField(verbose_name='是否开放', default=False)
+    is_open = fields.SwitchField(verbose_name='是否显示', default=False)
     seq = fields.IntegerField(verbose_name='排序序号', default=0)
 
     class Meta:

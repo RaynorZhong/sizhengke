@@ -180,7 +180,11 @@
                     </a>
                 </div>
                 <div class="layui-col-md1 logo-admin">
-                    <a href="{% url 'admin:index' %}" class="layui-font-12 layui-font-cyan">管理后台</a>
+                    {% if open_admin_site %}
+                        <a href="{% url 'admin:index' %}" class="layui-font-12 layui-font-cyan">进入后台</a>
+                    {% else %}
+                        <span class="layui-font-12 layui-font-cyan">{{ request.user.get_short_name|default:"老师" }}，您好！</span>
+                    {% endif %}
                 </div>
             </div>
         </div>

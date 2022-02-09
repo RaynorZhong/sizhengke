@@ -166,3 +166,8 @@ COS_BUCKET = config('COS_BUCKET')
 
 # Count Of Page
 COP = config('COP', default=10, cast=int)
+
+# Auth
+LOGIN_REDIRECT_URL = '/index'
+LOGIN_URL = '/admin/login/'
+LOGOUT_REDIRECT_URL = '/'
