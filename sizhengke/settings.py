@@ -171,3 +171,7 @@ COP = config('COP', default=10, cast=int)
 LOGIN_REDIRECT_URL = '/index'
 LOGIN_URL = '/admin/login/'
 LOGOUT_REDIRECT_URL = '/'
+
+# SESSION
+# 7200秒后失效(2小时)
+SESSION_COOKIE_AGE = 7200
