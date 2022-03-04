@@ -160,6 +160,19 @@
             display: block;
             clear: both;
         }
+        .layui-dropdown .layui-dropdown-menu .layui-menu-body-title a {
+            font-size: 16px;
+        }
+        .layui-font-white {
+            color: #FFFFFF!important;
+        }
+        .hidden-button {
+            display: none;
+        }
+        body .agree-class .layui-layer-title{background:#c00; color:#fff; border: none;}
+        body .agree-class .layui-layer-btn{border-top:1px solid #E9E7E7}
+        body .agree-class .layui-layer-btn a{background:#333;}
+        body .agree-class .layui-layer-btn .layui-layer-btn1{background:#999;}
     </style>
         <title>课程思政资源库</title>
 </head>
@@ -194,15 +207,15 @@
         <div class="layui-bg-sz-red">
             <div class="layui-container">
                 <ul class="layui-nav layui-bg-sz-red" lay-filter="" lay-bar="disabled">
-                    <li class="layui-nav-item index-pc" lay-unselect><a class="layui-font-white" href="{% url 'index' %}">首页</a></li>
+                    <li class="layui-nav-item index-pc" lay-unselect><a class="layui-font-white layui-font-18" style="padding: 0 16px;" href="{% url 'index' %}">首页</a></li>
                     <!-- 类别主题 -->
                     {% for topic in topic_category %}
                         {% if topic.child %}
-                            <li class="layui-nav-item" lay-unselect id="nav{{ topic.id }}"><a class="layui-font-white" href="{% url 'index' %}?at={{ topic.id }}">{{ topic.label }}
-                                <i class="layui-icon layui-icon-down layui-font-12"></i>
+                            <li class="layui-nav-item" lay-unselect id="nav{{ topic.id }}"><a class="layui-font-white layui-font-18" href="{% url 'index' %}?at={{ topic.id }}">{{ topic.label }}
+                                <i class="layui-icon layui-icon-down layui-font-14"></i>
                             </a></li>
                         {% else %}
-                            <li class="layui-nav-item" lay-unselect><a class="layui-font-white" href="{% url 'index' %}?at={{ topic.id }}">{{ topic.label }}</a></li>
+                            <li class="layui-nav-item" lay-unselect><a class="layui-font-white layui-font-18" href="{% url 'index' %}?at={{ topic.id }}">{{ topic.label }}</a></li>
                         {% endif %}
                     {% endfor %}
                     <script type="text/javascript">

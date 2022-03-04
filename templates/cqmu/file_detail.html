@@ -64,13 +64,15 @@
 {#                    <iframe src="https://view.officeapps.live.com/op/view.aspx?src={{ file.file.url }}" width='100%' style="min-height: 800px; border: 0;">#}
 {#                    </iframe>#}
                     <br/><br/>
-                    <button type="button" class="layui-btn layui-btn-primary layui-border-green" onclick="dl('{{ file.file.url }}')">点击下载</button>
+                    <button type="button" class="layui-btn layui-btn-primary layui-border-green" onclick="notice(this)">点击下载</button>
+                    <button type="button" class="hidden-button" onclick="dl('{{ file.file.url }}')" id="truedb">点击下载</button>
                 {% endif %}
                 <!-- Image -->
                 {% if form == 3 %}
                     <img src="{{ file.file.url }}" style="width: 100%;"/>
                     <br/><br/>
-                    <a href="{{ file.file.url }}" class="layui-btn layui-btn-primary layui-border-green" onclick="dl()">点击下载</a>
+                    <button type="button" class="layui-btn layui-btn-primary layui-border-green" onclick="notice(this)">点击下载</button>
+                    <a href="{{ file.file.url }}" class="hidden-button" onclick="dl()" id="truedb">点击下载</a>
                 {% endif %}
                 <!-- Audio -->
                 {% if form == 4 %}
@@ -79,7 +81,8 @@
                         <embed height="100" width="100" src="{{ file.file.url }}" />
                     </audio>
                     <br/><br/>
-                    <button type="button" class="layui-btn layui-btn-primary layui-border-green" onclick="dl('{{ file.file.url }}')">点击下载</button>
+                    <button type="button" class="layui-btn layui-btn-primary layui-border-green" onclick="notice(this)">点击下载</button>
+                    <button type="button" class="hidden-button" onclick="dl('{{ file.file.url }}')" id="truedb">点击下载</button>
                 {% endif %}
                 <!-- Video -->
                 {% if form == 5 %}
@@ -87,8 +90,11 @@
                         您的浏览器不支持 Video 标签。
                     </video>
                     <br/><br/>
-                    <button type="button" class="layui-btn layui-btn-primary layui-border-green" onclick="dl('{{ file.file.url }}')">点击下载</button>
+                    <button type="button" class="layui-btn layui-btn-primary layui-border-green" onclick="notice(this)">点击下载</button>
+                    <button type="button" class="hidden-button" onclick="dl('{{ file.file.url }}')" id="truedb">点击下载</button>
                 {% endif %}
+                <!-- Notice -->
+                <span class="layui-font-red" style="margin-left: 10px;">下载课程内容仅供个人学习、研究使用。如您未经授权许可使用、传播本网站的课程内容，则存在侵犯我方利益的法律风险，将依法承担法律责任。</span>
             {% else %}
                 暂无内容,请联系管理员。
             {% endif %}
@@ -118,6 +124,24 @@
                     }
                     ,end: function(){
                         clearInterval(this.timer);
+                    }
+                });
+            });
+        }
+        function notice(btn) {
+            console.log(btn);
+            btn.className = 'hidden-button';
+            document.getElementById('truedb').className = 'layui-btn layui-btn-primary layui-border-green';
+            layui.use('layer', function(){
+                layer.open({
+                    content: '下载课程内容仅供个人学习、研究使用。如您未经授权许可使用、传播本网站的课程内容，则存在侵犯我方利益的法律风险，将依法承担法律责任。'
+                    ,btn: ['同意']
+                    ,btnAlign: 'c'
+                    ,closeBtn: 0
+                    ,move: false
+                    ,skin: 'agree-class'
+                    ,yes: function(index, layero){
+                        layer.close(index);
                     }
                 });
             });
