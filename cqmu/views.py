@@ -1,6 +1,7 @@
 from django.shortcuts import render, get_object_or_404
 from django.http import JsonResponse, HttpResponseRedirect
 from django.contrib.auth.decorators import login_required
+from django.contrib.auth import authenticate
 from django.conf import settings
 from .models import *
 
@@ -35,12 +36,18 @@ def file_list(request):
     work_unit = WorkUnit.objects.all()
     file_category = FileCategory.objects.all()
     banner = Banner.objects.all()
+    change_password = 0
     if request.GET.get('at', None):
         active_topic = TopicCategory.objects.get(pk=int(request.GET['at']))
         file_upload_list = FileUpload.objects.filter(topic_category=active_topic)[:1]
     else:
         active_topic = None
         file_upload_list = FileUpload.objects.all()[:1]
+    # 未改初始密码
+    user = authenticate(username=request.user.username, password=settings.INIT_PASSWORD)
+    if user:
+        change_password = 1
+
     context = {
         'file_upload_list': file_upload_list,
         'grade': grade,
@@ -54,6 +61,7 @@ def file_list(request):
         'active_file_category': request.GET.get('file_category', ''),
         'active_release_date': request.GET.get('release_date', ''),
         'open_admin_site': request.user.has_perm('cqmu.open_admin_site'),
+        'change_password': change_password,
     }
     return render(request, 'cqmu/file_list.html', context)
 
@@ -176,3 +184,14 @@ def home(request):
         'banner': HomeBanner.objects.filter(is_open=True)
     }
     return render(request, 'cqmu/home.html', context)
+
+
+@login_required()
+def change_password(request):
+    newp = request.POST.get('newp', settings.INIT_PASSWORD)
+    request.user.set_password(newp)
+    request.user.save()
+    data = {
+        'result': 200,
+    }
+    return JsonResponse(data)
