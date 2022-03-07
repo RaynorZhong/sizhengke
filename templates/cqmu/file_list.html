@@ -1,5 +1,5 @@
 {% extends "cqmu/base.html" %}
-
+{% load static %}
 {% block banner %}
     <div class="layui-carousel" id="banner">
         <div carousel-item>
@@ -12,8 +12,8 @@
             <!-- 缺省banner图 -->
             {% if banner|length == 0 %}
                 <div>
-                    <img src="https://site-1306868775.cos.ap-chongqing.myqcloud.com/banner1140.jpg" class="big_size">
-                    <img src="https://site-1306868775.cos.ap-chongqing.myqcloud.com/banner375.jpg" class="small_size">
+                    <img src="{% static 'sizhengke/banner1140.jpg' %}" class="big_size">
+                    <img src="{% static 'sizhengke/banner375.jpg' %}" class="small_size">
                 </div>
             {% endif %}
         </div>

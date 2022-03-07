@@ -84,7 +84,7 @@
             <div class="layui-row">
                 <div class="logo-style layui-col-md11 layui-col-xs12">
                     <a href="{% url 'home' %}">
-                        <img src="https://site-1306868775.cos.ap-chongqing.myqcloud.com/logo.png"/>
+                        <img src="{% static 'sizhengke/logo.png' %}"/>
                         <span>&nbsp;&nbsp;|&nbsp;课程思政资源库</span>
                     </a>
                 </div>
@@ -106,7 +106,7 @@
                 <!-- 缺省banner图 -->
                 {% if banner|length == 0 %}
                     <div>
-                        <img src="https://site-1306868775.cos.ap-chongqing.myqcloud.com/home1.jpg" class="big_size">
+                        <img src="{% static 'sizhengke/home1.jpg' %}" class="big_size">
                     </div>
                 {% endif %}
             </div>

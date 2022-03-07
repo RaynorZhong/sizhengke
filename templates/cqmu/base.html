@@ -42,7 +42,7 @@
                 background-size: contain;
                 width: 70px;
                 height: 75px;
-                background: url("https://site-1306868775.cos.ap-chongqing.myqcloud.com/icon18.png") left center no-repeat;
+                background: url("{% static 'sizhengke/icon18.png' %}") left center no-repeat;
             }
             .index-pc a{
                 color: #9F2D31 !important;
@@ -189,7 +189,7 @@
             <div class="layui-row">
                 <div class="logo-style layui-col-md10 layui-col-xs12">
                     <a href="{% url 'index' %}">
-                        <img src="https://site-1306868775.cos.ap-chongqing.myqcloud.com/logo.png"/>
+                        <img src="{% static 'sizhengke/logo.png' %}"/>
                         <span>&nbsp;&nbsp;|&nbsp;课程思政资源库</span>
                     </a>
                 </div>
