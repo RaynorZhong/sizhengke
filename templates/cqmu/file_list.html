@@ -5,8 +5,8 @@
         <div carousel-item>
             {% for b in banner %}
                 <div>
-                    <img src="{{ b.big_size }}" class="big_size">
-                    <img src="{{ b.small_size }}" class="small_size">
+                    <img src="{{ b.big_size.url }}" class="big_size">
+                    <img src="{{ b.small_size.url }}" class="small_size">
                 </div>
             {% endfor %}
             <!-- 缺省banner图 -->

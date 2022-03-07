@@ -22,39 +22,17 @@ class WorkUnitAdmin(admin.ModelAdmin):
 
 @admin.register(Banner)
 class BannerAdmin(admin.ModelAdmin):
-    list_display = ('big_size_img', 'small_size_img', 'seq')
-    readonly_fields = ('big_size_img', 'small_size_img')
-
-    def big_size_img(self, obj):
-        return mark_safe('<img src="%s" width="300px;" />' % obj.big_size)
-
-    def small_size_img(self, obj):
-        return mark_safe('<img src="%s" width="150px;" />' % obj.small_size)
-
-    big_size_img.short_description = '主题图片-大尺寸'
-    small_size_img.short_description = '主题图片-小尺寸'
+    list_display = ('big_size', 'small_size', 'seq')
 
 
 @admin.register(HomeBanner)
 class HomeBannerAdmin(admin.ModelAdmin):
-    list_display = ('big_size_img', 'is_open', 'seq')
-    readonly_fields = ('big_size_img',)
-
-    def big_size_img(self, obj):
-        return mark_safe('<img src="%s" width="300px;" />' % obj.big_size)
-
-    big_size_img.short_description = '首页图片'
+    list_display = ('big_size', 'is_open', 'seq')
 
 
 @admin.register(FileCategory)
 class FileCategoryAdmin(admin.ModelAdmin):
-    list_display = ('label', 'form', 'icon_img', 'seq')
-    readonly_fields = ('icon_img', )
-
-    def icon_img(self, obj):
-        return mark_safe('<img src="%s" width="150px;" />' % obj.icon)
-
-    icon_img.short_description = '文件类型展示图片'
+    list_display = ('label', 'form', 'icon', 'seq')
 
 
 @admin.register(FileUpload)

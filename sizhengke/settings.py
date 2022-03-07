@@ -132,11 +132,16 @@ USE_TZ = False
 # https://docs.djangoproject.com/en/3.2/howto/static-files/
 
 STATIC_URL = '/static/'
-STATIC_ROOT = '/root/sizhengke/static/'
+STATIC_ROOT = config('STATIC_ROOT', default='/root/sizhengke/static/')
 
 STATICFILES_DIRS = [
     BASE_DIR / "static",
     ]
+
+# Media files
+
+MEDIA_URL = '/media/'
+MEDIA_ROOT = config('MEDIA_ROOT', default='/root/sizhengke/media/')
 
 # 配置simpleui静态文件离线模式 不填该项或者为False的时候，默认从第三方的cdn获取
 SIMPLEUI_STATIC_OFFLINE = True

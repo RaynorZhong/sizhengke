@@ -53,8 +53,8 @@ class WorkUnit(models.Model):
 
 
 class Banner(models.Model):
-    big_size = models.URLField('主题图片-大尺寸')
-    small_size = models.URLField('主题图片-小尺寸')
+    big_size = models.ImageField(verbose_name='主题图片-大尺寸', upload_to='banner/')
+    small_size = models.ImageField(verbose_name='主题图片-小尺寸', upload_to='banner/')
     seq = fields.IntegerField(verbose_name='排序序号', default=0)
 
     class Meta:
@@ -64,7 +64,7 @@ class Banner(models.Model):
 
 
 class HomeBanner(models.Model):
-    big_size = models.URLField('首页图片')
+    big_size = models.ImageField(verbose_name='首页图片', upload_to='home_banner/')
     is_open = fields.SwitchField(verbose_name='是否显示', default=False)
     seq = fields.IntegerField(verbose_name='排序序号', default=0)
 
@@ -84,7 +84,7 @@ class FileCategory(models.Model):
 
     label = fields.CharField(verbose_name='文件类型', max_length=200)
     form = fields.IntegerField(verbose_name='展现形式', default=1, choices=FormList)
-    icon = models.URLField('文件类型展示图片')
+    icon = models.ImageField(verbose_name='文件类型展示图片', upload_to='file_category/')
     seq = fields.IntegerField(verbose_name='排序序号', default=0)
 
     def __str__(self):

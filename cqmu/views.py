@@ -156,7 +156,7 @@ def file_list_json(request):
             'comment_scoring': str(f.comment_scoring),
             'downloads': f.downloads,
             'file': f.file.name,
-            'file_category': f.file_category.icon,
+            'file_category': f.file_category.icon.url,
             'grade': f.grade.label,
             'work_unit': f.work_unit.label,
             'release_date': f.release_date,
