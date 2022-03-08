@@ -3,10 +3,15 @@ from django.db.models.signals import post_save
 from simplepro.components import fields
 from django.db.models import Avg
 from django.db import models
-from .storage import CosStorage
 from django.dispatch import receiver
 
+
 # Create your models here.
+def validate_image(image):
+    file_size = image.file.size
+    limit_mb = 8
+    if file_size > limit_mb * 1024 * 1024:
+       raise ValidationError("图片不能超过 %s MB" % limit_mb)
 
 
 class TopicCategory(models.Model):
@@ -53,8 +58,8 @@ class WorkUnit(models.Model):
 
 
 class Banner(models.Model):
-    big_size = models.ImageField(verbose_name='主题图片-大尺寸', upload_to='banner/')
-    small_size = models.ImageField(verbose_name='主题图片-小尺寸', upload_to='banner/')
+    big_size = models.ImageField(verbose_name='主题图片-大尺寸', upload_to='banner/', validators=[validate_image], help_text='图片大小不超过 8 MB')
+    small_size = models.ImageField(verbose_name='主题图片-小尺寸', upload_to='banner/', validators=[validate_image], help_text='图片大小不超过 8 MB')
     seq = fields.IntegerField(verbose_name='排序序号', default=0)
 
     class Meta:
@@ -64,7 +69,7 @@ class Banner(models.Model):
 
 
 class HomeBanner(models.Model):
-    big_size = models.ImageField(verbose_name='首页图片', upload_to='home_banner/')
+    big_size = models.ImageField(verbose_name='首页图片', upload_to='home_banner/', validators=[validate_image], help_text='图片大小不超过 8 MB')
     is_open = fields.SwitchField(verbose_name='是否显示', default=False)
     seq = fields.IntegerField(verbose_name='排序序号', default=0)
 
@@ -84,7 +89,7 @@ class FileCategory(models.Model):
 
     label = fields.CharField(verbose_name='文件类型', max_length=200)
     form = fields.IntegerField(verbose_name='展现形式', default=1, choices=FormList)
-    icon = models.ImageField(verbose_name='文件类型展示图片', upload_to='file_category/')
+    icon = models.ImageField(verbose_name='文件类型展示图片', upload_to='file_category/', validators=[validate_image], help_text='图片大小不超过 8 MB')
     seq = fields.IntegerField(verbose_name='排序序号', default=0)
 
     def __str__(self):
@@ -134,7 +139,7 @@ class FileUpload(models.Model):
     """
 
     label = fields.CharField(verbose_name='文件名', max_length=200)
-    file = models.FileField('文件', storage=CosStorage(), help_text='文件大小不超过30MB', max_length=200, blank=True, null=True)
+    file = models.FileField('文件', help_text='文件大小不超过 256 MB', max_length=200, blank=True, null=True, upload_to='file/')
     url = models.URLField('URL', help_text='文件类型的展现形式为超链接，本字段必填', blank=True, null=True)
     presenter = fields.CharField(verbose_name='人物名字', max_length=200)
     description = fields.CharField(verbose_name='事件描述', input_type='textarea', max_length=200, style='width:500px;', rows=5)
@@ -175,9 +180,9 @@ class FileUpload(models.Model):
                         raise ValidationError({
                             'file': '文件类型的格式只能是 {}'.format(', '.join(sl))
                         })
-                    if self.file.size > 31457280:
+                    if self.file.size > 256 * 1024 * 1024:
                         raise ValidationError({
-                            'file': '文件大小不超过30MB'
+                            'file': '文件大小不超过 256 MB'
                         })
                 except NotImplementedError:
                     pass
