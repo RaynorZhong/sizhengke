@@ -36,6 +36,12 @@ INSTALLED_APPS = [
     'simplepro',
     'simpleui',
     'import_export',
+    'django_static_jquery3',
+    'django_secure_password_input',
+    'django_simple_tags',
+    'captcha',
+    'django_admin_safe_login',
+    'multi_captcha_admin',
     'django.contrib.admin',
     'django.contrib.auth',
     'django.contrib.contenttypes',
@@ -183,3 +189,14 @@ SESSION_COOKIE_AGE = 7200
 
 # 初始密码
 INIT_PASSWORD = config('INIT_PASSWORD')
+
+# 验证码配置
+MULTI_CAPTCHA_ADMIN = {
+    'engine': 'simple-captcha',
+}
+# 验证码图片大小
+CAPTCHA_IMAGE_SIZE = (78, 35)
+# 字符个数
+CAPTCHA_LENGTH = 4
+# 超时
+CAPTCHA_TIMEOUT = 10

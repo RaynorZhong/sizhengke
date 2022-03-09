@@ -1,0 +1,88 @@
+{% extends "admin/login.html" %}
+{% load static i18n simpletags %}
+
+{% block css %}
+    {{ block.super }}
+    <link rel="stylesheet" href="{% static '/admin/simplepro/css/login.css' %}">
+    <link rel="stylesheet" type="text/css" href="{% static "django-admin-safe-login/css/django-admin-safe-login.css" %}" />
+    <script src="{% static "jquery/jquery.js" %}"></script>
+    <script src="{% static "django-admin-safe-login/js/django-admin-safe-login.js" %}"></script>
+    {{ form.media }}
+{% endblock %}
+
+{% block bg %}
+    <style type="text/css">
+        .bg {
+            background: #f0f2f5;
+            background-image: url('{% static '/admin/simplepro/images/bg.svg' %}');
+            min-height: 100%;
+            background-repeat: no-repeat;
+            background-position: 50%;
+            background-size: 100%;
+            padding: 20px 0;
+            position: relative;
+        }
+        #id_captcha_1{
+            position: absolute;
+            margin:0 0 0 13px; /*上右下左*/
+            width: 260px;
+            font-size: inherit;
+            -webkit-appearance: none;
+            border-radius: 4px;
+            border: 1px solid #DCDFE6;
+            box-sizing: border-box;
+            display: inline-block;
+            height: 40px;
+            line-height: 40px;
+            outline: 0;
+            padding: 0 15px;
+            transition: border-color .2s cubic-bezier(.645,.045,.355,1);
+        }
+    </style>
+{% endblock %}
+{% block particles %}{% endblock %}
+{% block errors %}
+    {% if form.non_field_errors %}
+        {% for error in form.non_field_errors %}
+            <el-alert
+                    title="{{ error }}"
+                    type="error">
+            </el-alert>
+        {% endfor %}
+    {% endif %}
+    {% if form.errors and not form.non_field_errors %}
+        <p class="errornote">
+{#            {% if form.errors.items|length == 1 %}#}
+{#                <el-alert title="{% trans "Please correct the error below." %}" type="error"></el-alert>#}
+{#            {% else %}#}
+{#                <el-alert title="{% trans "Please correct the errors below." %}" type="error"></el-alert>#}
+{#            {% endif %}#}
+            {% if not form.this_is_the_login_form.errors %}
+                <el-alert title="请输入正确的验证码" type="error"></el-alert>
+            {% endif %}
+        </p>
+    {% endif %}
+{% endblock %}
+{% block form %}
+    <form class="simpleui-form" action="{{ app_path }}" method="post" id="login-form">
+        {% csrf_token %}
+        <div class="simpleui-input-inline">
+            <el-input prefix-icon="el-icon-user" v-model="username" name="username"
+                      placeholder="{% trans 'username' %}"></el-input>
+        </div>
+        <div class="simpleui-input-inline">
+            <div class="el-input el-input--prefix el-input--suffix">
+                {{ form.password }}
+                <span class="el-input__prefix"><i class="el-input__icon el-icon-lock"></i></span>
+                <span class="el-input__suffix"><span class="el-input__suffix-inner"></span></span>
+            </div>
+        </div>
+        <div class="simpleui-input-inline" captcha-refresh-url="{% url "captcha-refresh" %}">
+            {{ form.captcha }}
+        </div>
+        <div class="simpleui-input-inline login-btn">
+            <button type="submit" class="el-button el-button--primary"><span>登录</span></button>
+        </div>
+        <input type="hidden" name="next" value="{{ next }}"/>
+    </form>
+{% endblock %}
