@@ -170,10 +170,10 @@ SIMPLEPRO_CHART_DISPLAY = False
 SIMPLEUI_LOGO = '../../static/sizhengke/banner.png'
 
 # COS Settings
-COS_SECRET_ID = config('COS_SECRET_ID')
-COS_SECRET_KEY = config('COS_SECRET_KEY')
-COS_REGION = config('COS_REGION')
-COS_BUCKET = config('COS_BUCKET')
+COS_SECRET_ID = config('COS_SECRET_ID', None)
+COS_SECRET_KEY = config('COS_SECRET_KEY', None)
+COS_REGION = config('COS_REGION', None)
+COS_BUCKET = config('COS_BUCKET', None)
 
 # Count Of Page
 COP = config('COP', default=10, cast=int)
