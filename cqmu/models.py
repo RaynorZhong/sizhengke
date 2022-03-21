@@ -82,7 +82,7 @@ class HomeBanner(models.Model):
 class FileCategory(models.Model):
     FormList = [
         (1, '超链接'),
-        (2, '文件[doc|docx|ppt|pptx|pdf]-下载按钮'),
+        (2, '文件[doc|docx|ppt|pptx|pdf|xls|xlsx]-下载按钮'),
         (3, '图片[jpg|jpeg|png|bmp]-下载按钮'),
         (4, '音频[mp3]-下载按钮'),
         (5, '视频[mp4]-下载按钮')]
