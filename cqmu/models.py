@@ -104,7 +104,7 @@ class FileCategory(models.Model):
 class FileUpload(models.Model):
     SuffixList = {
         1: None,
-        2: ['doc', 'docx', 'ppt', 'pptx', 'pdf'],
+        2: ['doc', 'docx', 'ppt', 'pptx', 'pdf', 'xls', 'xlsx'],
         3: ['jpg', 'jpeg', 'png', 'bmp'],
         4: ['mp3'],
         5: ['mp4']
