@@ -8,8 +8,8 @@
     function checkFile() {
         //获取文件
         var file = document.getElementsByName("{{ widget.name }}")[0].files[0];
-        if(file.size >= 256 * 1024 *1024) {
-            alert('选择的文件大小超过256MB')
+        if(file.size >= 512 * 1024 *1024) {
+            alert('选择的文件大小超过512MB')
             document.getElementsByName("{{ widget.name }}")[0].value = ''
         }
     };

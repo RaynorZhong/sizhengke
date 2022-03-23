@@ -139,7 +139,7 @@ class FileUpload(models.Model):
     """
 
     label = fields.CharField(verbose_name='文件名', max_length=200)
-    file = models.FileField('文件', help_text='文件大小不超过 256 MB', max_length=200, blank=True, null=True, upload_to='file/')
+    file = models.FileField('文件', help_text='文件大小不超过 512 MB', max_length=200, blank=True, null=True, upload_to='file/')
     url = models.URLField('URL', help_text='文件类型的展现形式为超链接，本字段必填', blank=True, null=True)
     presenter = fields.CharField(verbose_name='人物名字', max_length=200)
     description = fields.CharField(verbose_name='事件描述', input_type='textarea', max_length=200, style='width:500px;', rows=5)
@@ -180,9 +180,9 @@ class FileUpload(models.Model):
                         raise ValidationError({
                             'file': '文件类型的格式只能是 {}'.format(', '.join(sl))
                         })
-                    if self.file.size > 256 * 1024 * 1024:
+                    if self.file.size > 512 * 1024 * 1024:
                         raise ValidationError({
-                            'file': '文件大小不超过 256 MB'
+                            'file': '文件大小不超过 512 MB'
                         })
                 except NotImplementedError:
                     pass
