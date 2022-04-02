@@ -7,8 +7,8 @@
     <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
     <meta name="referrer" content="origin">
     <!-- SEO -->
-    <meta name="keywords"  content="重庆医学院,护理学院,思想政治资源数据库,思政课,思政,思想政治,思政数据库,课程思政资源库" />
-    <meta name="description" content="课程思政资源库" />
+    <meta name="keywords"  content="重庆医学院,护理学院,思想政治资源数据库,思政课,思政,思想政治,思政数据库,课程思政资源库,重庆医科大学,课程思政,西迁精神,南丁格尔,思政资源库" />
+    <meta name="description" content="重庆医科大学护理学院课程思政资源库" />
     <!-- Webkit内核 -->
     <meta name="renderer" content="webkit">
     <!-- 地域属性 -->
@@ -34,7 +34,10 @@
         }
         @media screen and (max-width: 992px){
             .logo-admin {
-                display: none;
+                margin-top: 15px;
+            }
+            .logo-admin a{
+                font-size: 10px;!important;
             }
             .logo-style a img {
                 width: 50%;
@@ -81,14 +84,14 @@
     <nav class="home-header">
         <div class="layui-container">
             <div class="layui-row">
-                <div class="logo-style layui-col-md11 layui-col-xs12">
+                <div class="logo-style layui-col-md11 layui-col-xs10">
                     <a href="{% url 'home' %}">
                         <img src="{% static 'sizhengke/logo.png' %}"/>
                         <span>&nbsp;&nbsp;|&nbsp;课程思政资源库</span>
                     </a>
                 </div>
-                <div class="layui-col-md1 logo-admin">
-                    <a href="{% url 'index' %}" class="layui-font-12 layui-btn layui-btn-sm">进入资源库</a>
+                <div class="layui-col-md1 logo-admin layui-col-xs2">
+                    <a href="{% url 'index' %}" class="layui-btn layui-btn-sm">进入资源库</a>
                 </div>
             </div>
         </div>
