@@ -3,6 +3,8 @@ from django.http import JsonResponse, HttpResponseRedirect
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth import authenticate
 from django.conf import settings
+from django.db.models.functions import ExtractYear
+from django.db.models import Count
 from .models import *
 
 
@@ -35,6 +37,9 @@ def file_list(request):
     grade = Grade.objects.all()
     work_unit = WorkUnit.objects.all()
     file_category = FileCategory.objects.all()
+    release_date = list(FileUpload.objects.annotate(year=ExtractYear('release_date')).values('year'))
+    release_date = sorted(list(set([int(rd['year']) for rd in release_date])), reverse=True)
+    release_date = [{'label': f'{x}年', 'id': x} for x in release_date]
     banner = Banner.objects.all()
     change_password = 0
     if request.GET.get('at', None):
@@ -53,6 +58,7 @@ def file_list(request):
         'grade': grade,
         'banner': banner,
         'work_unit': work_unit,
+        'release_date': release_date,
         'file_category': file_category,
         'topic_category': encode_topic_category(topic_category),
         'active_topic': active_topic,

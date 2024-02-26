@@ -39,19 +39,8 @@
                     {% include "cqmu/search_panel.html" with search_list=grade active=active_grade title='级别' filter='grade' only %}
                     {% include "cqmu/search_panel.html" with search_list=file_category active=active_file_category title='文件类型' filter='file_category'  only %}
                     {% include "cqmu/search_panel.html" with search_list=work_unit active=active_work_unit title='所在单位' filter='work_unit'  only %}
-                    <div class="layui-row">
-                        <div class="name layui-col-md2">发生时间</div>
-                        <div class="layui-col-md10 layui-tab layui-tab-brief" lay-filter="release_date">
-                            <ul class="layui-tab-title">
-                                <li class="layui-this">全部</li>
-                                <li lay-id="2022">2022年</li>
-                                <li lay-id="2021">2021年</li>
-                                <li lay-id="2020">2020年</li>
-                                <li lay-id="2019">2019年</li>
-                                <li lay-id="2018">2018年</li>
-                            </ul>
-                        </div>
-                    </div>
+                    {% include "cqmu/search_panel.html" with search_list=release_date active=active_release_date title='发生时间' filter='release_date'  only %}
+
                     <div class="layui-row layui-form-item layui-col-space5">
                         <div class="layui-col-md6">
                             <div class="layui-col-xs4">
